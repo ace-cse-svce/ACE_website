@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ACE Design System - Teal/Cyan Theme */
+
+@layer base {
+  :root {
+    /* Core Colors - Teal/Cyan Theme */
+    --background: 160 30% 98%;
+    --foreground: 220 20% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
+
+    /* Primary - Teal */
+    --primary: 168 76% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Light Mint */
+    --secondary: 166 76% 97%;
+    --secondary-foreground: 168 76% 42%;
+
+    /* Muted */
+    --muted: 166 30% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    /* Accent - Cyan */
+    --accent: 175 84% 60%;
+    --accent-foreground: 220 20% 10%;
+
+    /* Amber accent for about section */
+    --amber: 38 92% 50%;
+    --amber-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 166 30% 90%;
+    --input: 166 30% 90%;
+    --ring: 168 76% 42%;
+
+    --radius: 0.5rem;
+
+    /* Custom glow colors */
+    --glow-primary: 168 64% 52%;
+    --glow-accent: 175 84% 60%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 168 76% 42%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 166 76% 97%;
+    --sidebar-accent-foreground: 168 76% 42%;
+    --sidebar-border: 166 30% 91%;
+    --sidebar-ring: 168 76% 42%;
+  }
+
+  .dark {
+    --background: 220 20% 6%;
+    --foreground: 166 30% 98%;
+
+    --card: 220 20% 8%;
+    --card-foreground: 166 30% 98%;
+
+    --popover: 220 20% 8%;
+    --popover-foreground: 166 30% 98%;
+
+    --primary: 168 76% 52%;
+    --primary-foreground: 220 20% 6%;
+
+    --secondary: 220 20% 15%;
+    --secondary-foreground: 166 30% 98%;
+
+    --muted: 220 20% 15%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 175 84% 50%;
+    --accent-foreground: 220 20% 6%;
+
+    --amber: 38 92% 50%;
+    --amber-foreground: 220 20% 6%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 20% 15%;
+    --input: 220 20% 15%;
+    --ring: 168 76% 52%;
+
+    --sidebar-background: 220 20% 6%;
+    --sidebar-foreground: 166 30% 98%;
+    --sidebar-primary: 168 76% 52%;
+    --sidebar-primary-foreground: 220 20% 6%;
+    --sidebar-accent: 220 20% 15%;
+    --sidebar-accent-foreground: 166 30% 98%;
+    --sidebar-border: 220 20% 15%;
+    --sidebar-ring: 168 76% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom animations for ACE website */
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .perspective-2000 {
+    perspective: 2000px;
+  }
+
+  /* Hero Animations */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes ken-burns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-ken-burns {
+    animation: ken-burns 20s ease-out infinite alternate;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  /* Glassmorphism utilities */
+  .glass {
+    @apply bg-white/40 backdrop-blur-xl border border-white/60;
+  }
+
+  .glass-strong {
+    @apply bg-white/70 backdrop-blur-2xl border border-white/80;
+  }
+
+  /* Gradient backgrounds */
+  .gradient-page {
+    @apply bg-gradient-to-br from-white via-secondary to-[hsl(166,76%,95%)];
+  }
+
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.25);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 40px hsl(var(--accent) / 0.25);
+  }
+
+  /* Scrollbar styling */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
