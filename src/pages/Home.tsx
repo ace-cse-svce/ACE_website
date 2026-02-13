@@ -102,7 +102,7 @@ export default function Home() {
         </button>
       </section>
 
-      {/* ABOUT SECTION */}
+{/* ABOUT SECTION */}
       <section id="about" className="py-24 px-6 w-full relative overflow-hidden font-sans">
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Centered Heading */}
@@ -113,7 +113,8 @@ export default function Home() {
             className="text-center mb-20"
           >
             <h2 className="text-4xl font-bold mb-4 text-foreground">About us</h2>
-            <div className="w-24 h-1.5 bg-gradient-to-r from-amber-600 to-amber-400 mx-auto rounded-full shadow-glow-amber" />
+            {/* Changed from amber to blue gradient */}
+            <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-cyan-400 mx-auto rounded-full shadow-[0_0_15px_rgba(37,99,235,0.5)]" />
           </motion.div>
 
           {/* Grid Layout */}
@@ -135,7 +136,8 @@ export default function Home() {
                 {["Innovation", "Technology", "Leadership"].map((tag) => (
                   <span
                     key={tag}
-                    className="px-6 py-2 rounded-full border border-amber-500/20 bg-amber-50 text-amber-700 text-sm font-bold uppercase tracking-widest shadow-sm"
+                    /* Changed tags from amber to blue theme */
+                    className="px-6 py-2 rounded-full border border-blue-500/20 bg-blue-50 text-blue-700 text-sm font-bold uppercase tracking-widest shadow-sm"
                   >
                     {tag}
                   </span>
@@ -150,7 +152,7 @@ export default function Home() {
                   key={i}
                   animate={{ rotate: 360 }}
                   transition={{ duration: 20 + i * 5, repeat: Infinity, ease: "linear" }}
-                  className="absolute border border-amber-400/20 rounded-full"
+                  className="absolute border border-blue-400/20 rounded-full"
                   style={{
                     width: `${240 + i * 40}px`,
                     height: `${240 + i * 40}px`,
@@ -158,17 +160,17 @@ export default function Home() {
                 />
               ))}
 
-              {/* Floating Particles */}
+              {/* Floating Particles - Updated to Blue/Cyan */}
               <div className="absolute inset-0 pointer-events-none">
                 <motion.div
                   animate={{ y: [-10, 10, -10], opacity: [0.4, 0.8, 0.4] }}
                   transition={{ duration: 4, repeat: Infinity }}
-                  className="absolute top-10 right-10 w-3 h-3 bg-amber-400 rounded-full blur-sm"
+                  className="absolute top-10 right-10 w-3 h-3 bg-blue-400 rounded-full blur-sm"
                 />
                 <motion.div
                   animate={{ y: [10, -10, 10], opacity: [0.3, 0.6, 0.3] }}
                   transition={{ duration: 6, repeat: Infinity }}
-                  className="absolute bottom-10 left-10 w-2 h-2 bg-yellow-500 rounded-full blur-sm"
+                  className="absolute bottom-10 left-10 w-2 h-2 bg-cyan-500 rounded-full blur-sm"
                 />
               </div>
 
@@ -184,11 +186,13 @@ export default function Home() {
                 }}
                 className="relative z-10 w-56 h-56 md:w-72 md:h-72 flex items-center justify-center"
               >
-                <div className="absolute inset-0 bg-amber-500/10 blur-[60px] rounded-full animate-pulse" />
+                {/* Updated Glow to Blue */}
+                <div className="absolute inset-0 bg-blue-500/10 blur-[60px] rounded-full animate-pulse" />
                 <img
-                  src="/ace_logo.png"
+                  src="/ace_logo1.png"
                   alt="ACE Logo"
-                  className="w-full h-full object-contain filter drop-shadow-[0_0_30px_rgba(217,119,6,0.3)]"
+                  /* Updated drop-shadow to Blue */
+                  className="w-full h-full object-contain filter drop-shadow-[0_0_30px_rgba(37,99,235,0.3)]"
                 />
               </motion.div>
             </div>
