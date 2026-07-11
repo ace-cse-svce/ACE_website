@@ -1,13 +1,16 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import Seo from "@/components/Seo";
+import BackgroundGlow from "@/components/BackgroundGlow";
+import Footer from "@/components/Footer";
 
 const galleryImages = [
-  { src: "/gallery1.JPG", alt: "Our Team" },
-  { src: "/gallery2.JPG", alt: "Inaugration Ceremony" },
-  { src: "/gallery3.JPG", alt: "Our Team" },
-  { src: "/hero3.png", alt: "Interrupt '25" },
-  { src: "/gallery5.jpg", alt: "Hackerrupt '25" },
+  { src: "/gallery1.webp", alt: "ACE Team AY 2025-2026" },
+  { src: "/gallery2.webp", alt: "Inauguration Ceremony" },
+  { src: "/gallery3.webp", alt: "ACE Team Group Photo" },
+  { src: "/hero3.webp", alt: "Interrupt '25" },
+  { src: "/gallery5.webp", alt: "Hackerrupt '25" },
 ];
 
 export default function GalleryPage() {
@@ -27,9 +30,12 @@ export default function GalleryPage() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden gradient-page pt-24 pb-20 px-6">
+      <Seo
+        title="Gallery"
+        description="Photos from ACE's events, hackathons, and team moments at Sri Venkateswara College of Engineering."
+      />
       {/* Background Glows */}
-      <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-teal-400/10 blur-[140px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-teal-400/5 blur-[120px] rounded-full pointer-events-none" />
+      <BackgroundGlow blur={140} />
 
       {/* Header */}
       <motion.div 
@@ -85,6 +91,7 @@ export default function GalleryPage() {
                     <img
                       src={galleryImages[itemIndex].src}
                       alt={galleryImages[itemIndex].alt}
+                      loading={isCenter ? "eager" : "lazy"}
                       className="w-full h-full object-cover"
                     />
 
@@ -125,14 +132,16 @@ export default function GalleryPage() {
 
         {/* Navigation Controls */}
         <div className="absolute bottom-0 flex gap-8 z-50">
-          <button 
-            onClick={prev} 
+          <button
+            onClick={prev}
+            aria-label="Previous image"
             className="p-4 md:p-5 rounded-full glass-strong text-primary hover:bg-teal-400 hover:text-white transition-all shadow-xl hover:scale-110 active:scale-95"
           >
             <ChevronLeft size={20} className="md:w-7 md:h-7" />
           </button>
-          <button 
-            onClick={next} 
+          <button
+            onClick={next}
+            aria-label="Next image"
             className="p-4 md:p-5 rounded-full glass-strong text-primary hover:bg-teal-400 hover:text-white transition-all shadow-xl hover:scale-110 active:scale-95"
           >
             <ChevronRight size={20} className="md:w-7 md:h-7" />
@@ -146,6 +155,8 @@ export default function GalleryPage() {
           <button
             key={i}
             onClick={() => setIndex(i)}
+            aria-label={`Go to image ${i + 1}`}
+            aria-current={i === index}
             className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
               i === index ? "bg-primary w-6" : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
             }`}
@@ -172,9 +183,10 @@ export default function GalleryPage() {
               <img
                 src={selected}
                 className="w-full h-full object-contain rounded-[2rem] shadow-2xl"
-                alt="Selected"
+                alt={galleryImages.find((img) => img.src === selected)?.alt ?? "Gallery image enlarged"}
               />
               <button
+                aria-label="Close enlarged image"
                 className="absolute -top-12 right-0 text-white hover:text-teal-400 transition-colors"
                 onClick={() => setSelected(null)}
               >
@@ -184,6 +196,7 @@ export default function GalleryPage() {
           </motion.div>
         )}
       </AnimatePresence>
+      <Footer />
     </div>
   );
 }

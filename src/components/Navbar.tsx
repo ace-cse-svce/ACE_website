@@ -120,7 +120,7 @@ export default function Navbar() {
           <div onClick={() => handleNavClick(navLinks[0])} className="flex items-center gap-3 cursor-pointer group shrink-0">
             <div className="relative flex items-center justify-center">
               <div className="absolute inset-0 bg-teal-400 blur-[20px] opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-full" />
-              <img src="/ace_logo1.png" alt="ACE Logo" className="relative w-10 h-10 object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-110" />
+              <img src="/ace_logo1.webp" alt="ACE Logo" className="relative w-10 h-10 object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-110" />
             </div>
             <span className="font-black tracking-tight text-xl bg-gradient-to-r from-teal-700 to-emerald-800 bg-clip-text text-transparent">ACE</span>
           </div>
@@ -149,9 +149,22 @@ export default function Navbar() {
             })}
           </div>
 
+          {/* Join Us CTA (desktop) */}
+          <Link
+            to="/join"
+            className="hidden md:inline-flex items-center px-5 py-2 text-sm font-bold text-white bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full shadow-[0_4px_15px_rgba(20,184,166,0.35)] hover:scale-105 transition-transform duration-300 shrink-0"
+          >
+            Join Us
+          </Link>
+
           {/* Mobile Toggle */}
           <div className="flex md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-zinc-700 hover:text-teal-600 hover:bg-white/50 rounded-full transition-colors active:scale-95">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={isOpen}
+              className="p-2 text-zinc-700 hover:text-teal-600 hover:bg-white/50 rounded-full transition-colors active:scale-95"
+            >
               {isOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
@@ -175,6 +188,14 @@ export default function Navbar() {
                     {activeTab === link.name && <div className="w-2 h-2 rounded-full bg-white animate-pulse" />}
                   </motion.button>
                 ))}
+
+                <Link
+                  to="/join"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full flex items-center justify-center p-4 mt-1 rounded-xl text-center font-bold text-white bg-gradient-to-r from-teal-500 to-cyan-500 shadow-md"
+                >
+                  Join Us
+                </Link>
               </div>
             </motion.div>
           )}

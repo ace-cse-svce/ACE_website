@@ -1,71 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-
-interface TeamMember {
-  name: string;
-  role: string;
-  image: string;
-}
-
-const teams: Record<string, TeamMember[]> = {
- "Core Team": [
-        { name: "Mithun S", role: "President", image: "/mithun.png" },
-        { name: "Kiran M S", role: "Vice President", image: "/kiran.png" },
-        { name: "Srinidhi S", role: "Vice President", image: "/srinidhi.png" },
-        { name: "Harsh S", role: "Vice President", image: "/harsh.png" },
-        { name: "Jai Krishna Prasath D", role: "Secretary", image: "/jai.jpg" },
-        { name: "Sarvesh Raghav B", role: "Operations Head", image: "/raghav1.png" },
-        { name: "Ashika Haseen S", role: "Treasurer", image: "/ashika.png" },
-        { name: "Nirrmal G", role: "Joint Secretary", image: "/nirrms.png" },
-    ],
-    "Executive Team": [
-        { name: "Johan A", role: "Executive Associative", image: "/johan.png" },
-        { name: "Aravintth T", role: "Executive Associative", image: "/aravintth.jpeg"},
-        { name: "Shrinithi Dasarathy", role: "Executive Associative", image: "/shrinithi.png" },
-        { name: "Kavya K P", role: "Executive Associative", image: "/kavya.png" },
-        { name: "Mirthun K S", role: "Executive Member", image: "/mirthun.png" },
-        { name: "Shree Kowsik S B", role: "Executive Member", image: "/kowsik.png" },
-        { name: "Salai B Dharshini", role: "Executive Member", image: "/salai.png" },
-        { name: "C Dhinesh", role: "Executive Member", image: "/dhinesh.png" },
-        { name: "Alagu Manikandan", role: "Executive Member", image: "/am.png" },
-        { name: "Rethinagiri S", role: "Executive Member", image: "/rethinagiri.png" },
-        { name: "Arpitha Paraneetharan", role: "Executive Member", image: "/arpritha.png" },
-        { name: "Kesava Navya", role: "Executive Member", image: "/kesava.png" },
-    ],
-    "Web Team": [
-        { name: "Sharmile S", role: "Web Team Lead", image: "/sharmile.png" },
-        { name: "Sri Ram R", role: "Web Team Member", image: "/sri.png" },
-        { name: "B Jashwanth Kumar", role: "Web Team Member", image: "/jaswanth.png" },
-    ],
-    "Design Team": [
-        { name: "Aneesh Kumar R", role: "Design Team Head", image: "/aneesh.jpg" },
-        { name: "Nantha Kishore S", role: "Design Team Member", image: "/nantha.png" },
-        { name: "Kanisha S", role: "Design Team Head", image: "/kanisha.png" },
-        { name: "Rajeshwari B C", role: "Design Team Member", image: "/raje.png" },
-        { name: "Kavinithi R P", role: "Design Team Member", image: "/kavinithi.png" },
-    ],
-    "Content Team": [
-        { name: "Sadhana S", role: "Content Team Head", image: "/sadhana.png" },
-        { name: "Mona Shree", role: "Content Team Member", image: "/mona.png" },
-        { name: "Vaishnavi Chitraa M", role: "Content Team Member", image: "/vaishnavi.png" },
-        { name: "Tharun Kumar T", role: "Content Team Member", image: "/tk.png" },
-    ],
-    "Marketting And Outreach Team": [
-        { name: "Shashank N S", role: "Marketting Team Head", image: "/shashank.png" },
-        { name: "Hariganesh A", role: "Outreach Team Head", image: "/hari.jpeg" },
-        { name: "Priyanka A", role: "Marketting Team Member", image: "/priyanka.png" },
-        { name: "Sharmila M", role: "Marketting Team Member", image: "/sharmila.png" },
-        { name: "Bhavana G", role: "Marketting Team Member", image: "/bhavana.png" },
-    ],
-    "Photography Team": [
-        { name: "V Raghav", role: "Photography Team Member", image: "/raghav.png" },
-    ],
-    "Faculty Co-ordinator": [
-        { name: "Dr. G Janaka Sudha", role: "Faculty Coordinator", image: "/js.jpg" },
-        { name: "Mr. K Srinivasan", role: "Faculty Coordinator", image: "/srinivasan.jpg" },
-        { name: "Mr. R Gnanavel", role: "Faculty Coordinator", image: "/vel.jpg" }
-    ],
-};
+import { teams } from "@/data/teams";
+import Seo from "@/components/Seo";
+import BackgroundGlow from "@/components/BackgroundGlow";
+import Footer from "@/components/Footer";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -90,9 +28,12 @@ export default function TeamsPage() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden gradient-page">
+      <Seo
+        title="Teams"
+        description="Meet the leadership, executive members, and coordinators behind the Association of Computer Engineers (ACE)."
+      />
       {/* Background Glows */}
-      <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-teal-400/10 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-5%] left-[-5%] w-[40%] h-[40%] bg-teal-400/5 blur-[100px] rounded-full pointer-events-none" />
+      <BackgroundGlow />
 
       <div className="relative z-20 pt-32 pb-20 px-6 max-w-7xl mx-auto">
         {/* Header */}
@@ -155,10 +96,11 @@ export default function TeamsPage() {
                       <div className={`relative w-full h-full rounded-[2rem] overflow-hidden border-2 transition-all duration-500 shadow-lg ${
                         clickedMember === member.name ? "border-teal-400" : "border-white/50 group-hover:border-teal-400"
                       }`}>
-                        <img 
-                          src={member.image} 
-                          alt={member.name} 
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          loading="lazy"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                       </div>
                     </div>
@@ -189,6 +131,7 @@ export default function TeamsPage() {
           </motion.div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

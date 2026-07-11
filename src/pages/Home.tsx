@@ -1,11 +1,14 @@
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Phone, Mail, MapPin, Instagram, Linkedin, ArrowUpRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Mail, MapPin, Instagram, Linkedin } from "lucide-react";
 import { useState, useEffect } from "react";
+import Seo from "@/components/Seo";
+import BackgroundGlow from "@/components/BackgroundGlow";
+import Footer from "@/components/Footer";
 
 const heroImages = [
-  { src: "/gallery1.JPG", alt: "Students collaborating on engineering project" },
-  { src: "/hero2.jpg", alt: "Community development field work" },
-  { src: "/hero3.png", alt: "Team group photo at conference" },
+  { src: "/gallery1.webp", alt: "Students collaborating on engineering project" },
+  { src: "/hero2.webp", alt: "Community development field work" },
+  { src: "/hero3.webp", alt: "Team group photo at conference" },
 ];
 
 export default function Home() {
@@ -34,9 +37,12 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden gradient-page font-sans">
+      <Seo
+        title="Home"
+        description="Association of Computer Engineers (ACE) at Sri Venkateswara College of Engineering — innovating today, leading tomorrow."
+      />
       {/* Global Background Glows */}
-      <div className="fixed top-[-10%] right-[-10%] w-[60%] h-[60%] bg-teal-400/10 blur-[120px] rounded-full pointer-events-none z-0" />
-      <div className="fixed bottom-[-5%] left-[-5%] w-[50%] h-[50%] bg-teal-400/5 blur-[100px] rounded-full pointer-events-none z-0" />
+      <BackgroundGlow fixed />
 
       {/* HERO SECTION */}
       <section id="home" className="relative h-[60vh] sm:h-[70vh] md:h-[90vh] overflow-hidden">
@@ -50,6 +56,7 @@ export default function Home() {
               <img
                 src={image.src}
                 alt={image.alt}
+                loading={index === 0 ? "eager" : "lazy"}
                 className="w-full h-full object-cover object-center md:object-top animate-ken-burns"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/70" />
@@ -82,6 +89,8 @@ export default function Home() {
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              aria-current={index === currentSlide}
               className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === currentSlide ? "bg-primary w-8" : "bg-white/60"}`}
             />
           ))}
@@ -90,12 +99,14 @@ export default function Home() {
         {/* Arrows */}
         <button
           onClick={() => setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length)}
+          aria-label="Previous slide"
           className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-primary text-white p-2 md:p-3 rounded-full backdrop-blur-sm transition-all z-10 hidden sm:flex"
         >
           <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
         </button>
         <button
           onClick={() => setCurrentSlide((prev) => (prev + 1) % heroImages.length)}
+          aria-label="Next slide"
           className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-primary text-white p-2 md:p-3 rounded-full backdrop-blur-sm transition-all z-10 hidden sm:flex"
         >
           <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
@@ -189,7 +200,7 @@ export default function Home() {
                 {/* Updated Glow to Blue */}
                 <div className="absolute inset-0 bg-blue-500/10 blur-[60px] rounded-full animate-pulse" />
                 <img
-                  src="/ace_logo1.png"
+                  src="/ace_logo1.webp"
                   alt="ACE Logo"
                   /* Updated drop-shadow to Blue */
                   className="w-full h-full object-contain filter drop-shadow-[0_0_30px_rgba(37,99,235,0.3)]"
@@ -231,7 +242,7 @@ export default function Home() {
                   {/* Subtle glow behind logo */}
                   <div className="absolute inset-0 bg-[#14b8a6]/20 blur-2xl rounded-full" />
                   <img
-                    src="/ace_logo1.png"
+                    src="/ace_logo1.webp"
                     alt="ACE Logo"
                     className="relative w-32 h-32 md:w-40 md:h-40 object-contain drop-shadow-[0_0_12px_rgba(20,184,166,0.3)]"
                   />
@@ -291,21 +302,17 @@ export default function Home() {
                 {/* Leadership Boxes */}
                 <div className="grid md:grid-cols-2 gap-4">
                   {[
-                    { name: "Mithun S", role: "President", phone: "+91 70103 41676" },
-                    { name: "Kiran M S", role: "Vice President", phone: "+91 88255 94439" }
+                    { name: "Mithun S", role: "President" },
+                    { name: "Kiran M S", role: "Vice President" }
                   ].map((lead) => (
                     <motion.div
                       key={lead.role}
                       whileHover={{ scale: 1.03 }}
                       className="p-6 rounded-[2rem] glass cursor-pointer"
                     >
-                      <div className="flex items-center gap-2 mb-2">
+                      <div className="flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-glow" />
                         <p className="text-sm font-black text-foreground uppercase">{lead.name} <span className="text-primary text-[10px] ml-1">({lead.role})</span></p>
-                      </div>
-                      <div className="flex items-center gap-2 text-muted-foreground ml-4">
-                        <Phone size={12} className="text-primary" />
-                        <p className="text-xs font-bold">{lead.phone}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -353,10 +360,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-10 text-center text-sm text-muted-foreground border-t border-border/50 bg-white/20 backdrop-blur-sm">
-        © 2025 Association Of Computer Engineers. All rights reserved.
-      </footer>
+      <Footer />
     </div>
   );
 }

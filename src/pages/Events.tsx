@@ -1,34 +1,20 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-
-const flagshipEvents = [
-  {
-    id: "01",
-    title: "Hackerrupt '26",
-    year: "2026",
-    desc: "A 24-hour national level hackathon where innovation meets execution. Solve real-world problems and win massive prizes.",
-    link: "https://www.acesvce.in/",
-    gradient: "from-teal-400 to-cyan-300",
-    image: "/hackerrupt.png"
-  },
-  {
-    id: "02",
-    title: "Interrupt '25",
-    year: "2025",
-    desc: "The flagship technical symposium featuring coding contests, workshops, and paper presentations from the best minds.",
-    link: "https://ace-interrupt.netlify.app/",
-    gradient: "from-cyan-400 to-teal-300",
-    image: "/interrupt25.png"
-  }
-];
+import { flagshipEvents } from "@/data/events";
+import Seo from "@/components/Seo";
+import BackgroundGlow from "@/components/BackgroundGlow";
+import Footer from "@/components/Footer";
 
 export default function EventsPage() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden gradient-page font-sans">
+      <Seo
+        title="Events"
+        description="Explore ACE's flagship events — Hackerrupt and Interrupt — the department's national-level hackathon and technical symposium."
+      />
 
       {/* Global Background Glows */}
-      <div className="fixed top-[-10%] right-[-10%] w-[60%] h-[60%] bg-teal-400/10 blur-[120px] rounded-full pointer-events-none z-0" />
-      <div className="fixed bottom-[-5%] left-[-5%] w-[50%] h-[50%] bg-teal-400/5 blur-[100px] rounded-full pointer-events-none z-0" />
+      <BackgroundGlow fixed />
 
       <section className="relative py-24 px-6 max-w-7xl mx-auto z-10 pt-32">
 
@@ -70,6 +56,7 @@ export default function EventsPage() {
                   <img
                     src={event.image}
                     alt={event.title}
+                    loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className={`absolute inset-0 bg-gradient-to-br ${event.gradient} opacity-10 mix-blend-multiply transition-opacity duration-500`} />
@@ -115,10 +102,7 @@ export default function EventsPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-10 text-center text-sm text-muted-foreground border-t border-border/50 bg-white/20 backdrop-blur-md relative z-10">
-        © 2025 Association Of Computer Engineers. All rights reserved.
-      </footer>
+      <Footer />
     </div>
   );
 }
