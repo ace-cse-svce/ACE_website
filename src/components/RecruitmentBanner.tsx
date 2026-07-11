@@ -64,11 +64,11 @@ export default function RecruitmentBanner() {
               <X size={16} />
             </button>
 
-            <Link to="/join" onClick={dismiss} className="block overflow-y-auto">
+            <Link to="/join" onClick={dismiss} className="block min-h-0 overflow-hidden">
               <img
                 src="/join-poster.webp"
                 alt="ACE Recruitment Drive AY 2026-27 — Core, Executive & Team roles open. Applications close 15 July 2026."
-                className="w-full h-auto"
+                className="block w-full h-auto"
               />
             </Link>
 
