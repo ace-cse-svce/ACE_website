@@ -59,7 +59,7 @@ const formSchema = z
       }),
     personalEmail: z.string().trim().email("Enter a valid email address"),
     phoneNumber: z.string().trim().regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit phone number"),
-    registrationNumber: z.string().trim().regex(/^\d{8}$/, "Enter the remaining 8 digits"),
+    registrationNumber: z.string().trim().regex(/^\d{9}$/, "Enter the remaining 9 digits"),
     yearOfStudy: z.enum(["II", "III", "IV"], { required_error: "Select your year of study" }),
     section: z.enum(sections, { required_error: "Select your section" }),
     programme: z.enum(programmes, { required_error: "Select your programme" }),
@@ -300,14 +300,14 @@ export default function Join() {
                             name={field.name}
                             ref={field.ref}
                             inputMode="numeric"
-                            maxLength={8}
-                            placeholder="XXXXXXXX"
+                            maxLength={9}
+                            placeholder="XXXXXXXXX"
                             className="flex-1 h-10 px-3 py-2 text-sm bg-transparent outline-none placeholder:text-muted-foreground"
-                            onChange={(e) => field.onChange(e.target.value.replace(/\D/g, "").slice(0, 8))}
+                            onChange={(e) => field.onChange(e.target.value.replace(/\D/g, "").slice(0, 9))}
                           />
                         </div>
                       </FormControl>
-                      <FormDescription>Your register number starts with {REGISTRATION_PREFIX} — enter the remaining 8 digits.</FormDescription>
+                      <FormDescription>Your register number starts with {REGISTRATION_PREFIX} — enter the remaining 9 digits.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -453,7 +453,7 @@ export default function Join() {
                         <SelectContent>
                           {availableRoles.map((role) => (
                             <SelectItem key={role.name} value={role.name}>
-                              {role.name} — {role.note}
+                              {role.name}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -494,7 +494,7 @@ export default function Join() {
                         <SelectContent>
                           {availableRolesForPref2.map((role) => (
                             <SelectItem key={role.name} value={role.name}>
-                              {role.name} — {role.note}
+                              {role.name}
                             </SelectItem>
                           ))}
                         </SelectContent>
