@@ -13,7 +13,7 @@ dist-ssr
 *.local
 
 #Environemnt files
-.myenv*
+myenv/
 
 # Editor directories and files
 .vscode/*
