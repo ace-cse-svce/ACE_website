@@ -61,8 +61,8 @@ const formSchema = z
     phoneNumber: z.string().trim().regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit phone number"),
     registrationNumber: z.string().trim().regex(/^\d{9}$/, "Enter the remaining 9 digits"),
     yearOfStudy: z.enum(["II", "III", "IV"], { required_error: "Select your year of study" }),
-    section: z.enum(sections, { required_error: "Select your section" }),
     programme: z.enum(programmes, { required_error: "Select your programme" }),
+    section: z.enum(sections, { required_error: "Select your section" }),
     gender: z.enum(genders, { required_error: "Select your gender" }),
     residency: z.enum(residencies, { required_error: "Select day scholar or hosteller" }),
     rolePreference1: z.enum(roleNames, { required_error: "Select a role" }),
@@ -340,31 +340,6 @@ export default function Join() {
 
                 <FormField
                   control={form.control}
-                  name="section"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Section</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select section" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {sections.map((s) => (
-                            <SelectItem key={s} value={s}>
-                              {s}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
                   name="programme"
                   render={({ field }) => (
                     <FormItem className="md:col-span-2">
@@ -379,6 +354,31 @@ export default function Join() {
                           {programmes.map((p) => (
                             <SelectItem key={p} value={p}>
                               {p}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="section"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Section</FormLabel>
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select section" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {sections.map((s) => (
+                            <SelectItem key={s} value={s}>
+                              {s}
                             </SelectItem>
                           ))}
                         </SelectContent>

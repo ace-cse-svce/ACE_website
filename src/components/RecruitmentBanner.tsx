@@ -4,20 +4,22 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 
 const DISMISS_KEY = "ace-join-banner-dismissed";
+const APPLICATION_DEADLINE = new Date("2026-07-15T23:59:59");
 
-// No recruitment poster yet — the design team is making one. Once it's ready,
-// drop it in public/ and swap the text block below for an <img> of the poster.
 export default function RecruitmentBanner() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
 
+  const applicationsClosed = Date.now() > APPLICATION_DEADLINE.getTime();
+
   useEffect(() => {
     if (location.pathname === "/join") return;
+    if (applicationsClosed) return;
     if (sessionStorage.getItem(DISMISS_KEY)) return;
 
     const timer = setTimeout(() => setOpen(true), 1200);
     return () => clearTimeout(timer);
-  }, [location.pathname]);
+  }, [location.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const dismiss = () => {
     setOpen(false);
@@ -40,48 +42,47 @@ export default function RecruitmentBanner() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[300] bg-foreground/60 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-[300] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={dismiss}
           role="dialog"
           aria-modal="true"
           aria-label="ACE recruitment announcement"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.92, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: "spring", damping: 22, stiffness: 260 }}
+            exit={{ opacity: 0, scale: 0.92, y: 24 }}
+            transition={{ type: "spring", damping: 24, stiffness: 280 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-md overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-teal-500 via-teal-400 to-cyan-400 text-white shadow-2xl"
+            className="relative w-full max-w-xs sm:max-w-sm rounded-2xl overflow-hidden shadow-2xl bg-white max-h-[90vh] flex flex-col"
           >
             <button
               onClick={dismiss}
               aria-label="Close announcement"
-              className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
+              className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/40 hover:bg-black/60 flex items-center justify-center transition-colors text-white"
             >
-              <X size={18} />
+              <X size={16} />
             </button>
 
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none" />
-            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none" />
+            <Link to="/join" onClick={dismiss} className="block overflow-y-auto">
+              <img
+                src="/join-poster.webp"
+                alt="ACE Recruitment Drive AY 2026-27 — Core, Executive & Team roles open. Applications close 15 July 2026."
+                className="w-full h-auto"
+              />
+            </Link>
 
-            <div className="relative p-10 text-center">
-              <img src="/ace_logo1.webp" alt="ACE Logo" className="w-20 h-20 mx-auto mb-5 drop-shadow-lg" />
-              <p className="text-xs font-black uppercase tracking-[0.3em] text-white/80 mb-2">Recruitment Open</p>
-              <h2 className="text-3xl font-black mb-3 leading-tight">We're Recruiting!</h2>
-              <p className="text-white/90 font-medium mb-8">
-                Core, executive, and team roles are open. Bring your ideas, skills, and energy to ACE.
-              </p>
+            <div className="p-4 pt-3 text-center shrink-0">
               <Link
                 to="/join"
                 onClick={dismiss}
-                className="inline-block px-8 py-3 bg-white text-teal-600 font-bold rounded-full shadow-lg hover:scale-105 transition-transform"
+                className="block w-full py-3 bg-teal-700 hover:bg-teal-800 text-white font-bold text-sm uppercase tracking-wider rounded-lg shadow-md transition-colors"
               >
-                Join Us
+                Apply Now
               </Link>
               <button
                 onClick={dismiss}
-                className="block mx-auto mt-4 text-xs text-white/70 hover:text-white transition-colors underline underline-offset-4"
+                className="mt-3 text-xs text-zinc-400 hover:text-zinc-600 transition-colors underline underline-offset-4"
               >
                 Maybe later
               </button>
