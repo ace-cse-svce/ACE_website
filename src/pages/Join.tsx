@@ -181,7 +181,7 @@ export default function Join() {
           <h1 className="text-4xl md:text-5xl font-black tracking-tight text-foreground">Join ACE</h1>
           <div className="w-20 h-1.5 bg-teal-400 mx-auto rounded-full my-4 shadow-glow" />
           <p className="text-muted-foreground font-medium">
-            Recruitment for core, executive, and team roles. Fill this out honestly — we read every response.
+            Recruiting for various roles for AY 2026-27. Fill this out honestly — we read every response.
           </p>
         </motion.div>
 
@@ -531,7 +531,7 @@ export default function Join() {
                       </FormControl>
                       <FormDescription>
                         Paste a public Drive link to anything relevant to your role — projects, designs, write-ups.
-                        Priority will be given to applicants who share their work.
+                        Sharing your work increases your chances of being selected.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
