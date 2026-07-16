@@ -19,6 +19,7 @@ import {
   residencies,
   type YearOfStudy,
 } from "@/data/roles";
+import { isApplicationsClosed } from "@/data/recruitment";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -112,6 +113,7 @@ export default function Join() {
 
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const applicationsClosed = isApplicationsClosed();
 
   const selectedYear = form.watch("yearOfStudy");
   const pref1 = form.watch("rolePreference1");
@@ -130,6 +132,7 @@ export default function Join() {
 
   async function onSubmit(values: FormValues) {
     if (values.website) return; // honeypot triggered — silently drop
+    if (isApplicationsClosed()) return; // deadline passed while the form was open
 
     if (!RECRUITMENT_FORM_URL) {
       toast.error("The recruitment form isn't wired up yet — please email ace@svce.ac.in directly.");
@@ -185,19 +188,42 @@ export default function Join() {
           </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex items-start gap-3 rounded-2xl bg-teal-50 border border-teal-200 p-4 mb-8 text-sm text-teal-900"
-        >
-          <Info size={18} className="shrink-0 mt-0.5 text-teal-600" />
-          <p>
-            All roles will go through an interview after shortlisting. Final role assignment and selection
-            will be decided based on that interview — not on preference order alone.
-          </p>
-        </motion.div>
+        {!applicationsClosed && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-start gap-3 rounded-2xl bg-teal-50 border border-teal-200 p-4 mb-8 text-sm text-teal-900"
+          >
+            <Info size={18} className="shrink-0 mt-0.5 text-teal-600" />
+            <p>
+              All roles will go through an interview after shortlisting. Final role assignment and selection
+              will be decided based on that interview — not on preference order alone.
+            </p>
+          </motion.div>
+        )}
 
-        {submitted ? (
+        {applicationsClosed ? (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="glass rounded-[2rem] p-10 text-center"
+          >
+            <h2 className="text-2xl font-bold text-foreground mb-2">Applications are closed</h2>
+            <p className="text-muted-foreground">
+              The recruitment window for AY 2026-27 closed on 15 July 2026. Thanks for your interest —
+              follow{" "}
+              <a
+                href="https://www.instagram.com/acesvce"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-semibold hover:underline"
+              >
+                @acesvce
+              </a>{" "}
+              for future openings.
+            </p>
+          </motion.div>
+        ) : submitted ? (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}

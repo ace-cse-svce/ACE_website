@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
+import { isApplicationsClosed } from "@/data/recruitment";
 
 const DISMISS_KEY = "ace-join-banner-dismissed";
-const APPLICATION_DEADLINE = new Date("2026-07-15T23:59:59");
 
 export default function RecruitmentBanner() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
 
-  const applicationsClosed = Date.now() > APPLICATION_DEADLINE.getTime();
+  const applicationsClosed = isApplicationsClosed();
 
   useEffect(() => {
     if (location.pathname === "/join") return;
