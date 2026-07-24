@@ -3,22 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import GlobalSearch from "@/components/GlobalSearch";
-
-interface NavLink {
-  name: string;
-  href: string;
-  type: "scroll" | "link";
-  target?: string;
-}
-
-const navLinks: NavLink[] = [
-  { name: "Home", href: "/", type: "scroll", target: "#home" },
-  { name: "About Us", href: "/", type: "scroll", target: "#about" },
-  { name: "Teams", href: "/teams", type: "link" },
-  { name: "Events", href: "/events", type: "link" },
-  { name: "Gallery", href: "/gallery", type: "link" },
-  { name: "Contact Us", href: "/", type: "scroll", target: "#contact" },
-];
+import { navLinks, type NavLink } from "@/data/navLinks";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

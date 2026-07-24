@@ -3,9 +3,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { academicYears, getEventsForYear, getSearchableEvents, filterEvents } from "@/data/completedEvents";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import EventFilterBar from "@/components/EventFilterBar";
 import GalleryEventCard from "@/components/GalleryEventCard";
+import YearPager from "@/components/YearPager";
 import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
 import Footer from "@/components/Footer";
@@ -32,12 +32,15 @@ export default function GalleryPage() {
   const [query, setQuery] = useState("");
   const [type, setType] = useState<string | null>(null);
   const [month, setMonth] = useState<string | null>(null);
-  const isSearching = query.trim() !== "" || type !== null || month !== null;
+  const [yearFilter, setYearFilter] = useState<string | null>(null);
+  const isSearching = query.trim() !== "" || type !== null || month !== null || yearFilter !== null;
 
   const searchResults = useMemo(
-    () => filterEvents(getSearchableEvents(), { query, type, month }),
-    [query, type, month],
+    () => filterEvents(getSearchableEvents(), { query, type, month, academicYear: yearFilter }),
+    [query, type, month, yearFilter],
   );
+
+  const activeYearEvents = useMemo(() => getEventsForYear(activeYear), [activeYear]);
 
   const handleYearChange = (yr: string) => {
     setSearchParams((prev) => {
@@ -127,11 +130,11 @@ export default function GalleryPage() {
                     {/* Desktop-only Description (Inside Image) */}
                     {isCenter && !isMobile && (
                       <motion.div
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="absolute bottom-8 left-1/2 -translate-x-1/2 w-max px-10 py-4 bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/50"
+                        className="absolute top-6 right-6 w-max px-4 py-1.5 bg-white/90 backdrop-blur-xl rounded-full shadow-lg border border-white/60"
                       >
-                        <p className="text-[11px] font-black uppercase tracking-[0.25em] text-primary">
+                        <p className="text-xs font-bold uppercase tracking-wider text-primary">
                           {galleryImages[itemIndex].alt}
                         </p>
                       </motion.div>
@@ -150,9 +153,9 @@ export default function GalleryPage() {
               key={index}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mx-auto w-fit max-w-[80vw] px-5 py-2.5 bg-white/90 backdrop-blur-xl rounded-xl shadow-xl border border-white/50 text-center"
+              className="mx-auto w-fit max-w-[80vw] px-4 py-1.5 bg-white/90 backdrop-blur-xl rounded-full shadow-lg border border-white/60 text-center"
             >
-              <p className="text-[11px] font-black uppercase tracking-[0.15em] text-primary break-words">
+              <p className="text-xs font-bold uppercase tracking-wider text-primary break-words">
                 {galleryImages[index].alt}
               </p>
             </motion.div>
@@ -255,12 +258,14 @@ export default function GalleryPage() {
           onTypeChange={setType}
           month={month}
           onMonthChange={setMonth}
+          year={yearFilter}
+          onYearChange={setYearFilter}
         />
 
         {isSearching ? (
           <div>
             <p className="text-center text-sm font-semibold text-muted-foreground mb-8">
-              {searchResults.length} result{searchResults.length === 1 ? "" : "s"} across all years
+              {searchResults.length} result{searchResults.length === 1 ? "" : "s"}
             </p>
             {searchResults.length > 0 ? (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -275,40 +280,31 @@ export default function GalleryPage() {
             )}
           </div>
         ) : (
-          <Tabs value={activeYear} onValueChange={handleYearChange} className="w-full">
-            <div className="flex justify-center mb-12">
-              <TabsList className="glass h-auto p-1.5 rounded-full flex-wrap justify-center gap-1 bg-white/40">
-                {orderedYears.map((yr) => (
-                  <TabsTrigger
-                    key={yr}
-                    value={yr}
-                    className="rounded-full px-5 py-2.5 text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm"
-                  >
-                    {yr}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </div>
+          <>
+            <YearPager years={orderedYears} activeYear={activeYear} onChange={handleYearChange} />
 
-            {orderedYears.map((yr) => {
-              const yearEvents = getEventsForYear(yr);
-              return (
-                <TabsContent key={yr} value={yr} className="mt-0">
-                  {yearEvents.length > 0 ? (
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {yearEvents.map((event) => (
-                        <GalleryEventCard key={event.slug} event={event} />
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-center text-muted-foreground py-12">
-                      No events recorded for this year yet.
-                    </p>
-                  )}
-                </TabsContent>
-              );
-            })}
-          </Tabs>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeYear}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.3 }}
+              >
+                {activeYearEvents.length > 0 ? (
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {activeYearEvents.map((event) => (
+                      <GalleryEventCard key={event.slug} event={event} />
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-center text-muted-foreground py-12">
+                    No events recorded for this year yet.
+                  </p>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </>
         )}
       </section>
 

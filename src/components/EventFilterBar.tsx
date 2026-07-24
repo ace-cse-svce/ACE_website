@@ -1,9 +1,10 @@
 import { Search, X } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { getAllEventTypes, getAllMonths } from "@/data/completedEvents";
+import { academicYears, getAllEventTypes, getAllMonths } from "@/data/completedEvents";
 
 const ALL_TYPES = getAllEventTypes();
 const ALL_MONTHS = getAllMonths();
+const ALL_YEARS = [...academicYears].reverse();
 
 interface EventFilterBarProps {
   query: string;
@@ -12,6 +13,8 @@ interface EventFilterBarProps {
   onTypeChange: (value: string | null) => void;
   month: string | null;
   onMonthChange: (value: string | null) => void;
+  year: string | null;
+  onYearChange: (value: string | null) => void;
   searchPlaceholder?: string;
 }
 
@@ -22,13 +25,15 @@ export default function EventFilterBar({
   onTypeChange,
   month,
   onMonthChange,
+  year,
+  onYearChange,
   searchPlaceholder = "Search by event name...",
 }: EventFilterBarProps) {
-  const hasActiveFilters = query.trim() !== "" || type !== null || month !== null;
+  const hasActiveFilters = query.trim() !== "" || type !== null || month !== null || year !== null;
 
   return (
-    <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-center mb-10 max-w-4xl mx-auto">
-      <div className="relative flex-1 min-w-0">
+    <div className="flex flex-col gap-3 mb-10 max-w-4xl mx-auto">
+      <div className="relative">
         <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/60" />
         <input
           type="text"
@@ -39,43 +44,58 @@ export default function EventFilterBar({
         />
       </div>
 
-      <Select value={type ?? "all"} onValueChange={(v) => onTypeChange(v === "all" ? null : v)}>
-        <SelectTrigger className="h-11 w-full sm:w-[170px] rounded-full glass bg-white/50 border-white/60 text-sm font-semibold">
-          <SelectValue placeholder="Category" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All Categories</SelectItem>
-          {ALL_TYPES.map((t) => (
-            <SelectItem key={t} value={t}>{t}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <div className="flex flex-wrap gap-3 items-center justify-center">
+        <Select value={year ?? "all"} onValueChange={(v) => onYearChange(v === "all" ? null : v)}>
+          <SelectTrigger className="h-11 w-[140px] rounded-full glass bg-white/50 border-white/60 text-sm font-semibold">
+            <SelectValue placeholder="Year" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Years</SelectItem>
+            {ALL_YEARS.map((y) => (
+              <SelectItem key={y} value={y}>{y}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
-      <Select value={month ?? "all"} onValueChange={(v) => onMonthChange(v === "all" ? null : v)}>
-        <SelectTrigger className="h-11 w-full sm:w-[150px] rounded-full glass bg-white/50 border-white/60 text-sm font-semibold">
-          <SelectValue placeholder="Month" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All Months</SelectItem>
-          {ALL_MONTHS.map((m) => (
-            <SelectItem key={m} value={m}>{m}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+        <Select value={type ?? "all"} onValueChange={(v) => onTypeChange(v === "all" ? null : v)}>
+          <SelectTrigger className="h-11 w-[170px] rounded-full glass bg-white/50 border-white/60 text-sm font-semibold">
+            <SelectValue placeholder="Category" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Categories</SelectItem>
+            {ALL_TYPES.map((t) => (
+              <SelectItem key={t} value={t}>{t}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
-      {hasActiveFilters && (
-        <button
-          onClick={() => {
-            onQueryChange("");
-            onTypeChange(null);
-            onMonthChange(null);
-          }}
-          className="h-11 px-4 inline-flex items-center justify-center gap-1.5 rounded-full text-sm font-bold text-muted-foreground hover:text-primary hover:bg-white/40 transition-colors shrink-0"
-        >
-          <X size={14} />
-          Clear
-        </button>
-      )}
+        <Select value={month ?? "all"} onValueChange={(v) => onMonthChange(v === "all" ? null : v)}>
+          <SelectTrigger className="h-11 w-[150px] rounded-full glass bg-white/50 border-white/60 text-sm font-semibold">
+            <SelectValue placeholder="Month" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Months</SelectItem>
+            {ALL_MONTHS.map((m) => (
+              <SelectItem key={m} value={m}>{m}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {hasActiveFilters && (
+          <button
+            onClick={() => {
+              onQueryChange("");
+              onTypeChange(null);
+              onMonthChange(null);
+              onYearChange(null);
+            }}
+            className="h-11 px-4 inline-flex items-center justify-center gap-1.5 rounded-full text-sm font-bold text-muted-foreground hover:text-primary hover:bg-white/40 transition-colors shrink-0"
+          >
+            <X size={14} />
+            Clear
+          </button>
+        )}
+      </div>
     </div>
   );
 }

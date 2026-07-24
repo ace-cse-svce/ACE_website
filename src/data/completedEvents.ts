@@ -124,17 +124,17 @@ interface EventFilters {
   query?: string;
   type?: string | null;
   month?: string | null;
+  academicYear?: string | null;
 }
 
-/** Case-insensitive substring match on name + description, plus optional type/month filters. */
+/** Case-insensitive substring match on event name only (not description), plus optional type/month/year filters. */
 export function filterEvents(events: CompletedEvent[], filters: EventFilters): CompletedEvent[] {
   const q = filters.query?.trim().toLowerCase() ?? "";
   return events.filter((e) => {
-    if (q && !e.name.toLowerCase().includes(q) && !e.description.toLowerCase().includes(q)) {
-      return false;
-    }
+    if (q && !e.name.toLowerCase().includes(q)) return false;
     if (filters.type && e.type !== filters.type) return false;
     if (filters.month && extractMonth(e.date) !== filters.month) return false;
+    if (filters.academicYear && e.academicYear !== filters.academicYear) return false;
     return true;
   });
 }

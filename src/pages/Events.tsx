@@ -1,13 +1,13 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { flagshipEvents } from "@/data/events";
 import { academicYears, getEventsForYear, getSearchableEvents, filterEvents } from "@/data/completedEvents";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CompletedEventCard from "@/components/CompletedEventCard";
 import EventFilterBar from "@/components/EventFilterBar";
 import EventTypeBadge from "@/components/EventTypeBadge";
+import YearPager from "@/components/YearPager";
 import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
 import Footer from "@/components/Footer";
@@ -22,13 +22,16 @@ export default function EventsPage() {
   const [query, setQuery] = useState("");
   const [type, setType] = useState<string | null>(null);
   const [month, setMonth] = useState<string | null>(null);
+  const [yearFilter, setYearFilter] = useState<string | null>(null);
 
-  const isSearching = query.trim() !== "" || type !== null || month !== null;
+  const isSearching = query.trim() !== "" || type !== null || month !== null || yearFilter !== null;
 
   const searchResults = useMemo(
-    () => filterEvents(getSearchableEvents(), { query, type, month }),
-    [query, type, month],
+    () => filterEvents(getSearchableEvents(), { query, type, month, academicYear: yearFilter }),
+    [query, type, month, yearFilter],
   );
+
+  const activeYearEvents = useMemo(() => getEventsForYear(activeYear), [activeYear]);
 
   const handleYearChange = (yr: string) => {
     setSearchParams((prev) => {
@@ -67,7 +70,7 @@ export default function EventsPage() {
         </motion.div>
 
         {/* Events Grid */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {flagshipEvents.map((event) => (
             <motion.div
               key={event.title}
@@ -75,16 +78,16 @@ export default function EventsPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="group relative h-[520px] w-full cursor-pointer perspective-1000"
+              className="group relative h-[380px] w-full cursor-pointer"
             >
               <a
                 href={event.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative h-full w-full overflow-hidden rounded-[2.5rem] glass shadow-xl transition-all duration-500 group-hover:shadow-glow-lg group-hover:-translate-y-2 flex flex-col no-underline block"
+                className="relative h-full w-full overflow-hidden rounded-[1.75rem] glass shadow-lg transition-all duration-500 group-hover:shadow-glow group-hover:-translate-y-1.5 flex flex-col no-underline block"
               >
                 {/* Top Graphic Area */}
-                <div className="relative h-[55%] w-full overflow-hidden bg-white/20">
+                <div className="relative h-[52%] w-full overflow-hidden bg-white/20">
                   <img
                     src={event.image}
                     alt={event.title}
@@ -94,42 +97,39 @@ export default function EventsPage() {
                   <div className={`absolute inset-0 bg-gradient-to-br ${event.gradient} opacity-10 mix-blend-multiply transition-opacity duration-500`} />
 
                   {/* Type Badge */}
-                  <div className="absolute top-6 left-6 z-10">
+                  <div className="absolute top-4 left-4">
                     <EventTypeBadge type={event.type} />
                   </div>
 
                   {/* Year Badge */}
-                  <div className="absolute top-6 right-6 z-10">
-                    <span className="px-4 py-2 rounded-full bg-white/80 backdrop-blur-md shadow-sm text-xs font-bold text-muted-foreground tracking-wider flex items-center gap-2">
-                      {event.year} <div className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+                  <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1 rounded-full bg-white/80 backdrop-blur-md shadow-sm text-xs font-bold text-muted-foreground tracking-wider">
+                      {event.year}
                     </span>
                   </div>
                 </div>
 
                 {/* Content Area */}
-                <div className="relative h-[45%] p-8 md:p-10 flex flex-col justify-between">
+                <div className="relative h-[48%] p-5 md:p-6 flex flex-col justify-between">
                   <div>
-                    <span className="text-primary font-bold text-xs tracking-widest uppercase mb-2 block">
+                    <span className="text-primary font-bold text-[10px] tracking-widest uppercase mb-1 block">
                       Flagship Event {event.id}
                     </span>
-                    <h3 className="text-3xl md:text-4xl font-black text-foreground mb-3 tracking-tight group-hover:text-teal-600 transition-colors duration-300">
+                    <h3 className="text-xl md:text-2xl font-black text-foreground mb-1.5 tracking-tight group-hover:text-teal-600 transition-colors duration-300 line-clamp-2">
                       {event.title}
                     </h3>
-                    <p className="text-muted-foreground font-medium leading-relaxed line-clamp-3">
+                    <p className="text-muted-foreground text-sm font-medium leading-relaxed line-clamp-2">
                       {event.desc}
                     </p>
                   </div>
 
-                  <div className="pt-4 flex items-center justify-between">
-                    <span className="inline-flex items-center gap-2 text-foreground font-bold group/btn">
-                      <span className="relative">
-                        Explore Event
-                        <span className="absolute left-0 bottom-0 w-full h-[2px] bg-primary transform scale-x-0 transition-transform duration-300 group-hover/btn:scale-x-100 origin-left"></span>
-                      </span>
+                  <div className="pt-3 flex items-center justify-between">
+                    <span className="text-xs font-bold text-foreground/70">
+                      Explore Event
                     </span>
 
-                    <div className="w-12 h-12 rounded-full bg-white/60 border border-white flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-300 shadow-sm">
-                      <ArrowUpRight size={20} className="text-muted-foreground group-hover:text-white transition-colors" />
+                    <div className="w-9 h-9 rounded-full bg-white/60 border border-white flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-300 shadow-sm">
+                      <ArrowUpRight size={16} className="text-muted-foreground group-hover:text-white transition-colors" />
                     </div>
                   </div>
                 </div>
@@ -167,12 +167,14 @@ export default function EventsPage() {
           onTypeChange={setType}
           month={month}
           onMonthChange={setMonth}
+          year={yearFilter}
+          onYearChange={setYearFilter}
         />
 
         {isSearching ? (
           <div>
             <p className="text-center text-sm font-semibold text-muted-foreground mb-8">
-              {searchResults.length} result{searchResults.length === 1 ? "" : "s"} across all years
+              {searchResults.length} result{searchResults.length === 1 ? "" : "s"}
             </p>
             {searchResults.length > 0 ? (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
@@ -187,40 +189,31 @@ export default function EventsPage() {
             )}
           </div>
         ) : (
-          <Tabs value={activeYear} onValueChange={handleYearChange} className="w-full">
-            <div className="flex justify-center mb-12">
-              <TabsList className="glass h-auto p-1.5 rounded-full flex-wrap justify-center gap-1 bg-white/40">
-                {orderedYears.map((yr) => (
-                  <TabsTrigger
-                    key={yr}
-                    value={yr}
-                    className="rounded-full px-5 py-2.5 text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm"
-                  >
-                    {yr}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </div>
+          <>
+            <YearPager years={orderedYears} activeYear={activeYear} onChange={handleYearChange} />
 
-            {orderedYears.map((yr) => {
-              const yearEvents = getEventsForYear(yr);
-              return (
-                <TabsContent key={yr} value={yr} className="mt-0">
-                  {yearEvents.length > 0 ? (
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                      {yearEvents.map((event) => (
-                        <CompletedEventCard key={event.slug} event={event} />
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-center text-muted-foreground py-12">
-                      No events recorded for this year yet.
-                    </p>
-                  )}
-                </TabsContent>
-              );
-            })}
-          </Tabs>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeYear}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.3 }}
+              >
+                {activeYearEvents.length > 0 ? (
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                    {activeYearEvents.map((event) => (
+                      <CompletedEventCard key={event.slug} event={event} />
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-center text-muted-foreground py-12">
+                    No events recorded for this year yet.
+                  </p>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </>
         )}
       </section>
 
