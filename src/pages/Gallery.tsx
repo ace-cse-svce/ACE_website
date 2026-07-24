@@ -1,9 +1,16 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { academicYears, getEventsForYear, getSearchableEvents, filterEvents } from "@/data/completedEvents";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import EventFilterBar from "@/components/EventFilterBar";
+import GalleryEventCard from "@/components/GalleryEventCard";
 import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
 import Footer from "@/components/Footer";
+
+const orderedYears = [...academicYears].reverse();
 
 const galleryImages = [
   { src: "/gallery1.webp", alt: "ACE Team AY 2025-2026" },
@@ -17,6 +24,28 @@ export default function GalleryPage() {
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const yearParam = searchParams.get("year");
+  const activeYear = yearParam && orderedYears.includes(yearParam) ? yearParam : orderedYears[0];
+
+  const [query, setQuery] = useState("");
+  const [type, setType] = useState<string | null>(null);
+  const [month, setMonth] = useState<string | null>(null);
+  const isSearching = query.trim() !== "" || type !== null || month !== null;
+
+  const searchResults = useMemo(
+    () => filterEvents(getSearchableEvents(), { query, type, month }),
+    [query, type, month],
+  );
+
+  const handleYearChange = (yr: string) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("year", yr);
+      return next;
+    }, { replace: true });
+  };
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -196,6 +225,93 @@ export default function GalleryPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Event Photo Albums */}
+      <section className="relative py-16 max-w-7xl mx-auto z-10">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-14"
+        >
+          <span className="text-primary font-extrabold tracking-[0.2em] uppercase text-sm mb-3 block">
+            Relive Every Moment
+          </span>
+          <h2 className="text-5xl md:text-6xl font-bold mb-4 text-foreground">
+            Event Photo Albums
+          </h2>
+          <div className="w-32 h-2 bg-teal-400 mx-auto rounded-full shadow-glow mb-6" />
+          <p className="text-muted-foreground text-lg font-medium max-w-2xl mx-auto">
+            Full photo albums for each event, hosted on Google Drive. Albums are being added
+            progressively — events without a link yet are marked "Coming Soon".
+          </p>
+        </motion.div>
+
+        <EventFilterBar
+          query={query}
+          onQueryChange={setQuery}
+          type={type}
+          onTypeChange={setType}
+          month={month}
+          onMonthChange={setMonth}
+        />
+
+        {isSearching ? (
+          <div>
+            <p className="text-center text-sm font-semibold text-muted-foreground mb-8">
+              {searchResults.length} result{searchResults.length === 1 ? "" : "s"} across all years
+            </p>
+            {searchResults.length > 0 ? (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {searchResults.map((event) => (
+                  <GalleryEventCard key={event.slug} event={event} />
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-muted-foreground py-12">
+                No events match your search or filters.
+              </p>
+            )}
+          </div>
+        ) : (
+          <Tabs value={activeYear} onValueChange={handleYearChange} className="w-full">
+            <div className="flex justify-center mb-12">
+              <TabsList className="glass h-auto p-1.5 rounded-full flex-wrap justify-center gap-1 bg-white/40">
+                {orderedYears.map((yr) => (
+                  <TabsTrigger
+                    key={yr}
+                    value={yr}
+                    className="rounded-full px-5 py-2.5 text-sm font-bold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm"
+                  >
+                    {yr}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+
+            {orderedYears.map((yr) => {
+              const yearEvents = getEventsForYear(yr);
+              return (
+                <TabsContent key={yr} value={yr} className="mt-0">
+                  {yearEvents.length > 0 ? (
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {yearEvents.map((event) => (
+                        <GalleryEventCard key={event.slug} event={event} />
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-center text-muted-foreground py-12">
+                      No events recorded for this year yet.
+                    </p>
+                  )}
+                </TabsContent>
+              );
+            })}
+          </Tabs>
+        )}
+      </section>
+
       <Footer />
     </div>
   );

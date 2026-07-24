@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import Home from "./pages/Home";
 import Teams from "./pages/Teams";
 import Events from "./pages/Events";
+import CompletedEventDetail from "./pages/CompletedEventDetail";
+import InterruptHub from "./pages/InterruptHub";
 import Gallery from "./pages/Gallery";
 import Join from "./pages/Join";
 import NotFound from "./pages/NotFound";
@@ -40,6 +42,8 @@ const App = () => (
                 <Route path="/" element={<Home />} />
                 <Route path="/teams" element={<Teams />} />
                 <Route path="/events" element={<Events />} />
+                <Route path="/events/interrupt/:year" element={<InterruptHub />} />
+                <Route path="/events/completed/:slug" element={<CompletedEventDetail />} />
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/join" element={<Join />} />
                 <Route path="*" element={<NotFound />} />
