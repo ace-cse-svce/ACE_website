@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { flagshipEvents } from "@/data/events";
+import { assetUrl } from "@/lib/assetUrl";
 import { academicYears, getEventsForYear, getSearchableEvents, filterEvents } from "@/data/completedEvents";
 import CompletedEventCard from "@/components/CompletedEventCard";
 import EventFilterBar from "@/components/EventFilterBar";
@@ -45,7 +46,7 @@ export default function EventsPage() {
     <div className="relative min-h-screen w-full overflow-hidden gradient-page font-sans">
       <Seo
         title="Events"
-        description="Explore ACE's flagship events and browse our full archive of past hackathons, symposiums, workshops, and technical events."
+        description="Explore ACE's upcoming events and browse our full archive of past hackathons, symposiums, workshops, and technical events."
       />
 
       {/* Global Background Glows */}
@@ -61,10 +62,10 @@ export default function EventsPage() {
           className="text-center mb-20"
         >
           <span className="text-primary font-extrabold tracking-[0.2em] uppercase text-sm mb-3 block">
-            Our Legacy
+            What's Next
           </span>
           <h2 className="text-5xl md:text-6xl font-bold mb-4 text-foreground">
-            Flagship Events
+            Upcoming Events
           </h2>
           <div className="w-32 h-2 bg-teal-400 mx-auto rounded-full shadow-glow" />
         </motion.div>
@@ -89,7 +90,7 @@ export default function EventsPage() {
                 {/* Top Graphic Area */}
                 <div className="relative h-[52%] w-full overflow-hidden bg-white/20">
                   <img
-                    src={event.image}
+                    src={assetUrl(event.image)}
                     alt={event.title}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -113,7 +114,7 @@ export default function EventsPage() {
                 <div className="relative h-[48%] p-5 md:p-6 flex flex-col justify-between">
                   <div>
                     <span className="text-primary font-bold text-[10px] tracking-widest uppercase mb-1 block">
-                      Flagship Event {event.id}
+                      Upcoming Event {event.id}
                     </span>
                     <h3 className="text-xl md:text-2xl font-black text-foreground mb-1.5 tracking-tight group-hover:text-teal-600 transition-colors duration-300 line-clamp-2">
                       {event.title}

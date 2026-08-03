@@ -87,7 +87,7 @@ export default function GlobalSearch() {
               </CommandItem>
             ))}
           </CommandGroup>
-          <CommandGroup heading="Flagship Events">
+          <CommandGroup heading="Upcoming Events">
             {flagshipEvents.map((e) => (
               <CommandItem key={e.title} value={e.title} onSelect={() => goToFlagship(e.link)}>
                 <span className="flex-1">{e.title}</span>

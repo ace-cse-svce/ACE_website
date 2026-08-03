@@ -2,6 +2,7 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Calendar, MapPin, Users, Award, Gift, ListChecks } from "lucide-react";
 import { getEventBySlug } from "@/data/completedEvents";
+import { assetUrl } from "@/lib/assetUrl";
 import EventTypeBadge from "@/components/EventTypeBadge";
 import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
@@ -48,7 +49,7 @@ export default function CompletedEventDetail() {
           {event.image && (
             <div className="relative h-[280px] md:h-[420px] w-full overflow-hidden bg-white/20">
               <img
-                src={event.image}
+                src={assetUrl(event.image)}
                 alt={event.name}
                 className="absolute inset-0 w-full h-full object-cover"
               />

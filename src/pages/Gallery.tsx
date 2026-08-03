@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { academicYears, getEventsForYear, getSearchableEvents, filterEvents } from "@/data/completedEvents";
+import { assetUrl } from "@/lib/assetUrl";
 import EventFilterBar from "@/components/EventFilterBar";
 import GalleryEventCard from "@/components/GalleryEventCard";
 import YearPager from "@/components/YearPager";
@@ -121,7 +122,7 @@ export default function GalleryPage() {
                       : "opacity-60 ring-1 ring-white/20"
                   }`}>
                     <img
-                      src={galleryImages[itemIndex].src}
+                      src={assetUrl(galleryImages[itemIndex].src)}
                       alt={galleryImages[itemIndex].alt}
                       loading={isCenter ? "eager" : "lazy"}
                       className="w-full h-full object-cover"
@@ -213,7 +214,7 @@ export default function GalleryPage() {
               className="relative max-w-[95vw] max-h-[90vh]"
             >
               <img
-                src={selected}
+                src={assetUrl(selected)}
                 className="w-full h-full object-contain rounded-[2rem] shadow-2xl"
                 alt={galleryImages.find((img) => img.src === selected)?.alt ?? "Gallery image enlarged"}
               />

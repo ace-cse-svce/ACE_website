@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, ImageOff } from "lucide-react";
 import EventTypeBadge from "@/components/EventTypeBadge";
 import { CompletedEvent, isInterruptSymposiumEvent, getEventRoute } from "@/data/completedEvents";
+import { assetUrl } from "@/lib/assetUrl";
 
 interface CompletedEventCardProps {
   event: CompletedEvent;
@@ -27,7 +28,7 @@ export default function CompletedEventCard({ event }: CompletedEventCardProps) {
         <div className="relative h-[52%] w-full overflow-hidden bg-white/30">
           {event.image ? (
             <img
-              src={event.image}
+              src={assetUrl(event.image)}
               alt={event.name}
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"

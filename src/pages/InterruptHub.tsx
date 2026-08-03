@@ -2,6 +2,7 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Calendar, MapPin, Users } from "lucide-react";
 import { getInterruptSymposium, getInterruptSubEvents } from "@/data/completedEvents";
+import { assetUrl } from "@/lib/assetUrl";
 import CompletedEventCard from "@/components/CompletedEventCard";
 import EventTypeBadge from "@/components/EventTypeBadge";
 import Seo from "@/components/Seo";
@@ -43,7 +44,7 @@ export default function InterruptHub() {
           {symposium.image && (
             <div className="relative h-[240px] md:h-[360px] w-full overflow-hidden bg-white/20">
               <img
-                src={symposium.image}
+                src={assetUrl(symposium.image)}
                 alt={symposium.name}
                 className="absolute inset-0 w-full h-full object-cover"
               />
