@@ -1,0 +1,56 @@
+{
+  "academicYear": "2021-22",
+  "events": [
+    {
+      "slug": "2021-22-inauguration-data-driven-world",
+      "name": "Inauguration 2021-22 & Guest Lecture: \"It's a Data-Driven World\"",
+      "type": "Guest Lecture",
+      "date": "5th December 2021",
+      "year": "2021",
+      "venue": null,
+      "description": "ACE was inaugurated for the academic year 2021-22 by Mr. Saisubramaniam Gopalakrishnan, an alumnus of the CSE 2015 batch and Research Engineer at Institute for Infocomm Research, Singapore. As part of the inauguration, he delivered a webinar titled 'It's a Data-Driven World' at 4 PM.",
+      "participants": null,
+      "winners": [],
+      "prizes": null,
+      "requirements": null,
+      "academicYear": "2021-22",
+      "isInterruptSubEvent": false,
+      "interruptYear": null,
+      "image": "/events/completed/2021-22/2021-22-inauguration-data-driven-world.jpg"
+    },
+    {
+      "slug": "2021-22-womania",
+      "name": "Womania 2022",
+      "type": "Cultural Event",
+      "date": "March 2022",
+      "year": "2022",
+      "venue": null,
+      "description": "ACE conducted 'Womania' for the girl students of the department to commemorate International Women's Day.",
+      "participants": null,
+      "winners": [],
+      "prizes": null,
+      "requirements": null,
+      "academicYear": "2021-22",
+      "isInterruptSubEvent": false,
+      "interruptYear": null,
+      "image": "/events/completed/2021-22/2021-22-womania.jpg"
+    },
+    {
+      "slug": "2021-22-data-analytics-lecture",
+      "name": "Guest Lecture: \"Introduction to Data Analytics\"",
+      "type": "Guest Lecture",
+      "date": "9th May 2022",
+      "year": "2022",
+      "venue": null,
+      "description": "A guest lecture on 'Introduction to Data Analytics' was delivered by Mr. Sashank K, an alumnus of the CSE 2018 batch and Analytics Manager at Madstreet Den, Chennai.",
+      "participants": null,
+      "winners": [],
+      "prizes": null,
+      "requirements": null,
+      "academicYear": "2021-22",
+      "isInterruptSubEvent": false,
+      "interruptYear": null,
+      "image": "/events/completed/2021-22/2021-22-data-analytics-lecture.jpg"
+    }
+  ]
+}

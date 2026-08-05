@@ -2,22 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-interface NavLink {
-  name: string;
-  href: string;
-  type: "scroll" | "link";
-  target?: string;
-}
-
-const navLinks: NavLink[] = [
-  { name: "Home", href: "/", type: "scroll", target: "#home" },
-  { name: "About Us", href: "/", type: "scroll", target: "#about" },
-  { name: "Teams", href: "/teams", type: "link" },
-  { name: "Events", href: "/events", type: "link" },
-  { name: "Gallery", href: "/gallery", type: "link" },
-  { name: "Contact Us", href: "/", type: "scroll", target: "#contact" },
-];
+import GlobalSearch from "@/components/GlobalSearch";
+import { navLinks, type NavLink } from "@/data/navLinks";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -149,16 +135,20 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Join Us CTA (desktop) */}
-          <Link
-            to="/join"
-            className="hidden md:inline-flex items-center px-5 py-2 text-sm font-bold text-white bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full shadow-[0_4px_15px_rgba(20,184,166,0.35)] hover:scale-105 transition-transform duration-300 shrink-0"
-          >
-            Join Us
-          </Link>
+          {/* Search + Join Us CTA (desktop) */}
+          <div className="hidden md:flex items-center gap-2 shrink-0">
+            <GlobalSearch />
+            <Link
+              to="/join"
+              className="inline-flex items-center px-5 py-2 text-sm font-bold text-white bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full shadow-[0_4px_15px_rgba(20,184,166,0.35)] hover:scale-105 transition-transform duration-300"
+            >
+              Join Us
+            </Link>
+          </div>
 
           {/* Mobile Toggle */}
-          <div className="flex md:hidden">
+          <div className="flex md:hidden items-center gap-1">
+            <GlobalSearch />
             <button
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}

@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { teams } from "@/data/teams";
+import { assetUrl } from "@/lib/assetUrl";
 import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
 import Footer from "@/components/Footer";
@@ -97,7 +98,7 @@ export default function TeamsPage() {
                         clickedMember === member.name ? "border-teal-400" : "border-white/50 group-hover:border-teal-400"
                       }`}>
                         <img
-                          src={member.image}
+                          src={assetUrl(member.image)}
                           alt={member.name}
                           loading="lazy"
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"

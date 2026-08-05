@@ -114,7 +114,7 @@ export default function Home() {
       </section>
 
 {/* ABOUT SECTION */}
-      <section id="about" className="py-24 px-6 w-full relative overflow-hidden font-sans">
+      <section id="about" className="pt-24 pb-12 px-6 w-full relative overflow-hidden font-sans">
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Centered Heading */}
           <motion.div
@@ -212,7 +212,7 @@ export default function Home() {
       </section>
 
       {/* CONTACT SECTION */}
-      <section id="contact" className="relative py-24 bg-transparent overflow-hidden">
+      <section id="contact" className="relative pt-12 pb-24 bg-transparent overflow-hidden">
         {/* Ambient Glow Orbs */}
         <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-teal-400/10 blur-[120px] rounded-full pointer-events-none" />

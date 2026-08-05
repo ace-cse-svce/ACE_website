@@ -1,9 +1,17 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { academicYears, getEventsForYear, getSearchableEvents, filterEvents } from "@/data/completedEvents";
+import { assetUrl } from "@/lib/assetUrl";
+import EventFilterBar from "@/components/EventFilterBar";
+import GalleryEventCard from "@/components/GalleryEventCard";
+import YearPager from "@/components/YearPager";
 import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
 import Footer from "@/components/Footer";
+
+const orderedYears = [...academicYears].reverse();
 
 const galleryImages = [
   { src: "/gallery1.webp", alt: "ACE Team AY 2025-2026" },
@@ -17,6 +25,31 @@ export default function GalleryPage() {
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const yearParam = searchParams.get("year");
+  const activeYear = yearParam && orderedYears.includes(yearParam) ? yearParam : orderedYears[0];
+
+  const [query, setQuery] = useState("");
+  const [type, setType] = useState<string | null>(null);
+  const [month, setMonth] = useState<string | null>(null);
+  const [yearFilter, setYearFilter] = useState<string | null>(null);
+  const isSearching = query.trim() !== "" || type !== null || month !== null || yearFilter !== null;
+
+  const searchResults = useMemo(
+    () => filterEvents(getSearchableEvents(), { query, type, month, academicYear: yearFilter }),
+    [query, type, month, yearFilter],
+  );
+
+  const activeYearEvents = useMemo(() => getEventsForYear(activeYear), [activeYear]);
+
+  const handleYearChange = (yr: string) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set("year", yr);
+      return next;
+    }, { replace: true });
+  };
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -89,7 +122,7 @@ export default function GalleryPage() {
                       : "opacity-60 ring-1 ring-white/20"
                   }`}>
                     <img
-                      src={galleryImages[itemIndex].src}
+                      src={assetUrl(galleryImages[itemIndex].src)}
                       alt={galleryImages[itemIndex].alt}
                       loading={isCenter ? "eager" : "lazy"}
                       className="w-full h-full object-cover"
@@ -98,11 +131,11 @@ export default function GalleryPage() {
                     {/* Desktop-only Description (Inside Image) */}
                     {isCenter && !isMobile && (
                       <motion.div
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="absolute bottom-8 left-1/2 -translate-x-1/2 w-max px-10 py-4 bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/50"
+                        className="absolute top-6 right-6 w-max px-4 py-1.5 bg-white/90 backdrop-blur-xl rounded-full shadow-lg border border-white/60"
                       >
-                        <p className="text-[11px] font-black uppercase tracking-[0.25em] text-primary">
+                        <p className="text-xs font-bold uppercase tracking-wider text-primary">
                           {galleryImages[itemIndex].alt}
                         </p>
                       </motion.div>
@@ -121,9 +154,9 @@ export default function GalleryPage() {
               key={index}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mx-auto w-fit max-w-[80vw] px-5 py-2.5 bg-white/90 backdrop-blur-xl rounded-xl shadow-xl border border-white/50 text-center"
+              className="mx-auto w-fit max-w-[80vw] px-4 py-1.5 bg-white/90 backdrop-blur-xl rounded-full shadow-lg border border-white/60 text-center"
             >
-              <p className="text-[11px] font-black uppercase tracking-[0.15em] text-primary break-words">
+              <p className="text-xs font-bold uppercase tracking-wider text-primary break-words">
                 {galleryImages[index].alt}
               </p>
             </motion.div>
@@ -181,7 +214,7 @@ export default function GalleryPage() {
               className="relative max-w-[95vw] max-h-[90vh]"
             >
               <img
-                src={selected}
+                src={assetUrl(selected)}
                 className="w-full h-full object-contain rounded-[2rem] shadow-2xl"
                 alt={galleryImages.find((img) => img.src === selected)?.alt ?? "Gallery image enlarged"}
               />
@@ -196,6 +229,86 @@ export default function GalleryPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Event Photo Albums */}
+      <section className="relative py-16 max-w-7xl mx-auto z-10">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-14"
+        >
+          <span className="text-primary font-extrabold tracking-[0.2em] uppercase text-sm mb-3 block">
+            Relive Every Moment
+          </span>
+          <h2 className="text-5xl md:text-6xl font-bold mb-4 text-foreground">
+            Event Photo Albums
+          </h2>
+          <div className="w-32 h-2 bg-teal-400 mx-auto rounded-full shadow-glow mb-6" />
+          <p className="text-muted-foreground text-lg font-medium max-w-2xl mx-auto">
+            Full photo albums for each event, hosted on Google Drive. Albums are being added
+            progressively — events without a link yet are marked "Coming Soon".
+          </p>
+        </motion.div>
+
+        <EventFilterBar
+          query={query}
+          onQueryChange={setQuery}
+          type={type}
+          onTypeChange={setType}
+          month={month}
+          onMonthChange={setMonth}
+          year={yearFilter}
+          onYearChange={setYearFilter}
+        />
+
+        {isSearching ? (
+          <div>
+            <p className="text-center text-sm font-semibold text-muted-foreground mb-8">
+              {searchResults.length} result{searchResults.length === 1 ? "" : "s"}
+            </p>
+            {searchResults.length > 0 ? (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {searchResults.map((event) => (
+                  <GalleryEventCard key={event.slug} event={event} />
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-muted-foreground py-12">
+                No events match your search or filters.
+              </p>
+            )}
+          </div>
+        ) : (
+          <>
+            <YearPager years={orderedYears} activeYear={activeYear} onChange={handleYearChange} />
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeYear}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.3 }}
+              >
+                {activeYearEvents.length > 0 ? (
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {activeYearEvents.map((event) => (
+                      <GalleryEventCard key={event.slug} event={event} />
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-center text-muted-foreground py-12">
+                    No events recorded for this year yet.
+                  </p>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </>
+        )}
+      </section>
+
       <Footer />
     </div>
   );
