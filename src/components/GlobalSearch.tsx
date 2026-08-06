@@ -13,7 +13,7 @@ import { getSearchableEvents, getEventRoute, CompletedEvent } from "@/data/compl
 import { flagshipEvents } from "@/data/events";
 import { navLinks, type NavLink } from "@/data/navLinks";
 
-const pageLinks: NavLink[] = [...navLinks, { name: "Join Us", href: "/join", type: "link" }];
+const pageLinks: NavLink[] = [...navLinks];
 
 function scrollToTarget(target: string) {
   const el = document.querySelector(target);

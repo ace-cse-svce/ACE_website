@@ -97,12 +97,19 @@ export default function TeamsPage() {
                       <div className={`relative w-full h-full rounded-[2rem] overflow-hidden border-2 transition-all duration-500 shadow-lg ${
                         clickedMember === member.name ? "border-teal-400" : "border-white/50 group-hover:border-teal-400"
                       }`}>
-                        <img
-                          src={assetUrl(member.image)}
-                          alt={member.name}
-                          loading="lazy"
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
+                        <div className="w-full h-full transition-transform duration-700 group-hover:scale-105">
+                          <img
+                            src={assetUrl(member.image)}
+                            alt={member.name}
+                            loading="lazy"
+                            className="w-full h-full"
+                            style={{ 
+                              objectPosition: member.objectPosition || 'center',
+                              objectFit: member.objectFit || 'cover',
+                              transform: member.scale ? `scale(${member.scale})` : undefined
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
 

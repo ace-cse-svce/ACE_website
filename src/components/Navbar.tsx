@@ -97,8 +97,8 @@ export default function Navbar() {
         <motion.nav
           layout
           className={`pointer-events-auto relative flex items-center justify-between gap-4 transition-all duration-500 w-full md:w-auto ${isScrolled
-              ? "py-3 px-6 rounded-2xl md:py-2.5 md:px-4 md:rounded-full bg-white/80 backdrop-blur-xl border border-white/40 shadow-xl shadow-teal-900/5"
-              : "py-3 px-6 rounded-2xl bg-white/60 backdrop-blur-md border border-white/20 shadow-lg"
+              ? "py-3 px-6 rounded-2xl md:py-2.5 md:px-4 md:rounded-full bg-white/90 backdrop-blur-xl border border-zinc-200/50 shadow-sm"
+              : "py-3 px-6 rounded-2xl bg-white/80 backdrop-blur-lg border border-white/50 shadow-sm"
             }`}
           style={{ maxWidth: "1280px" }}
         >
@@ -112,7 +112,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Links */}
-          <div className={`hidden md:flex items-center rounded-full p-1 transition-colors duration-500 ${isScrolled ? "bg-white/50 border border-white/50" : "bg-white/30"}`}>
+          <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
               const isActive = activeTab === link.name;
               return (
@@ -138,12 +138,7 @@ export default function Navbar() {
           {/* Search + Join Us CTA (desktop) */}
           <div className="hidden md:flex items-center gap-2 shrink-0">
             <GlobalSearch />
-            <Link
-              to="/join"
-              className="inline-flex items-center px-5 py-2 text-sm font-bold text-white bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full shadow-[0_4px_15px_rgba(20,184,166,0.35)] hover:scale-105 transition-transform duration-300"
-            >
-              Join Us
-            </Link>
+
           </div>
 
           {/* Mobile Toggle */}
@@ -164,7 +159,7 @@ export default function Navbar() {
         <AnimatePresence>
           {isOpen && (
             <motion.div initial={{ opacity: 0, scale: 0.95, y: -20 }} animate={{ opacity: 1, scale: 1, y: 12 }} exit={{ opacity: 0, scale: 0.95, y: -10 }} className="pointer-events-auto absolute top-full left-4 right-4 md:hidden">
-              <div className="bg-white/95 backdrop-blur-xl border border-white/60 rounded-2xl p-2 shadow-2xl flex flex-col gap-1 overflow-hidden">
+              <div className="bg-white/95 backdrop-blur-xl border border-zinc-200/50 rounded-2xl p-2 shadow-xl flex flex-col gap-1 overflow-hidden">
                 {navLinks.map((link, idx) => (
                   <motion.button
                     key={link.name}
@@ -179,13 +174,7 @@ export default function Navbar() {
                   </motion.button>
                 ))}
 
-                <Link
-                  to="/join"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full flex items-center justify-center p-4 mt-1 rounded-xl text-center font-bold text-white bg-gradient-to-r from-teal-500 to-cyan-500 shadow-md"
-                >
-                  Join Us
-                </Link>
+
               </div>
             </motion.div>
           )}

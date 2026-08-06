@@ -6,6 +6,6 @@ const CDN_BASE = (import.meta.env.VITE_ASSETS_BASE_URL as string | undefined)?.r
  * local /public copy so the app still works without any CDN set up.
  */
 export function assetUrl(path: string): string {
-  if (!CDN_BASE || !path.startsWith("/")) return path;
-  return `${CDN_BASE}${path}`;
+  if (!CDN_BASE || !path.startsWith("/")) return encodeURI(path);
+  return `${CDN_BASE}${encodeURI(path)}`;
 }
