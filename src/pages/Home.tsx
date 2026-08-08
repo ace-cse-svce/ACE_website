@@ -6,7 +6,7 @@ import BackgroundGlow from "@/components/BackgroundGlow";
 import Footer from "@/components/Footer";
 
 const heroImages = [
-  { src: "/gallery1.webp", alt: "Students collaborating on engineering project" },
+  { src: "/gallery1.jpeg", alt: "Students collaborating on engineering project" },
   { src: "/hero2.webp", alt: "Community development field work" },
   { src: "/hero3.webp", alt: "Team group photo at conference" },
 ];

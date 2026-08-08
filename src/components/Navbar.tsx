@@ -105,8 +105,8 @@ export default function Navbar() {
                 ? "p-1.5 rounded-full md:py-1.5 md:px-6 bg-[#13131A]/70 backdrop-blur-[30px] border border-[rgba(255,255,255,0.05)] shadow-xl"
                 : "p-1.5 rounded-full md:py-1.5 md:px-6 bg-[#13131A]/60 backdrop-blur-[30px] border border-[rgba(255,255,255,0.05)] shadow-lg"
               : isScrolled
-                ? "py-3 px-6 rounded-2xl md:py-2.5 md:px-4 md:rounded-full bg-white/90 backdrop-blur-xl border border-zinc-200/50 shadow-sm"
-                : "py-3 px-6 rounded-2xl bg-white/80 backdrop-blur-lg border border-white/50 shadow-sm"
+                ? "py-3 px-6 rounded-2xl md:py-1.5 md:px-4 md:rounded-full bg-white/90 backdrop-blur-xl border border-zinc-200/50 shadow-sm"
+                : "py-3 px-6 rounded-2xl md:py-1.5 md:px-4 md:rounded-full bg-white/80 backdrop-blur-lg border border-white/50 shadow-sm"
           }`}
           style={{ maxWidth: "1280px" }}
         >

@@ -43,10 +43,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   scheduleLink = "#timeline",
 }) => {
   return (
-    <section className="relative w-full min-h-[85vh] flex items-center overflow-hidden pt-44 md:pt-32 pb-16 perspective-1000">
+    <section className="relative w-full min-h-[85vh] flex items-center overflow-hidden pt-36 md:pt-32 pb-16 perspective-1000">
 
       {/* ACE Logo - Top Left */}
-      <div className="absolute top-24 left-1/2 -translate-x-1/2 md:top-12 md:left-12 md:translate-x-0 z-20">
+      <div className="absolute top-16 left-1/2 -translate-x-1/2 md:top-12 md:left-12 md:translate-x-0 z-20">
         <img 
           src={assetUrl("/ace_logo.png")} 
           alt="ACE Logo" 
