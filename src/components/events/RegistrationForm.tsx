@@ -47,7 +47,7 @@ const formSchema = z.object({
   section: z.enum(sections, {
     required_error: "Please select your section.",
   }),
-  yearOfStudy: z.enum(yearsOfStudy, { 
+  yearOfStudy: z.enum(yearsOfStudy, {
     required_error: "Please select your year of study.",
   }),
   website: z.string().max(0, "").optional(), // honeypot
@@ -83,7 +83,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
 
     setSubmitting(true);
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbzBEa1YqTISyX5GNX3DkVtTmRfLvOUiETBizWRdh-9UfniDRbi4LRc3yYwEIuEszuGd_w/exec", {
+      await fetch(import.meta.env.VITE_RECRUITMENT_SHEET_URL as string, {
         method: "POST",
         mode: "no-cors",
         headers: {
@@ -123,14 +123,14 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
               <FormItem className="relative pt-4">
                 <FormControl>
                   <div className="relative group">
-                    <input 
+                    <input
                       id="field-name"
-                      className="peer w-full bg-transparent border-0 border-b border-[rgba(255,255,255,0.1)] py-2 text-white focus:outline-none focus:ring-0 focus:border-transparent transition-colors placeholder-transparent" 
-                      placeholder="Full Name" 
-                      {...field} 
+                      className="peer w-full bg-transparent border-0 border-b border-[rgba(255,255,255,0.1)] py-2 text-white focus:outline-none focus:ring-0 focus:border-transparent transition-colors placeholder-transparent"
+                      placeholder="Full Name"
+                      {...field}
                     />
-                    <label 
-                      htmlFor="field-name" 
+                    <label
+                      htmlFor="field-name"
                       className="absolute left-0 -top-5 text-[#A1A1AA] text-xs font-medium transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-[#71717A] peer-placeholder-shown:top-2 peer-focus:-top-5 peer-focus:text-[#8A2BE2] peer-focus:text-xs cursor-text pointer-events-none"
                     >
                       Full Name
@@ -150,14 +150,14 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
               <FormItem className="relative pt-4">
                 <FormControl>
                   <div className="relative group">
-                    <input 
+                    <input
                       id="field-reg"
-                      className="peer w-full bg-transparent border-0 border-b border-[rgba(255,255,255,0.1)] py-2 text-white focus:outline-none focus:ring-0 focus:border-transparent transition-colors placeholder-transparent" 
-                      placeholder="Registration Number" 
-                      {...field} 
+                      className="peer w-full bg-transparent border-0 border-b border-[rgba(255,255,255,0.1)] py-2 text-white focus:outline-none focus:ring-0 focus:border-transparent transition-colors placeholder-transparent"
+                      placeholder="Registration Number"
+                      {...field}
                     />
-                    <label 
-                      htmlFor="field-reg" 
+                    <label
+                      htmlFor="field-reg"
                       className="absolute left-0 -top-5 text-[#A1A1AA] text-xs font-medium transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-[#71717A] peer-placeholder-shown:top-2 peer-focus:-top-5 peer-focus:text-[#8A2BE2] peer-focus:text-xs cursor-text pointer-events-none"
                     >
                       Registration Number
@@ -226,7 +226,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
                         <SelectItem key={s} value={s} className="focus:bg-[#8A2BE2]/20 focus:text-white rounded-md my-1 cursor-pointer transition-colors duration-200">
                           {s}
                         </SelectItem>
-                    ))}
+                      ))}
                   </SelectContent>
                 </Select>
                 <FormMessage className="text-red-400 absolute -bottom-5 text-xs" />
@@ -242,15 +242,15 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
               <FormItem className="relative pt-4">
                 <FormControl>
                   <div className="relative group">
-                    <input 
+                    <input
                       id="field-email"
                       type="email"
-                      className="peer w-full bg-transparent border-0 border-b border-[rgba(255,255,255,0.1)] py-2 text-white focus:outline-none focus:ring-0 focus:border-transparent transition-colors placeholder-transparent" 
-                      placeholder="Email Address" 
-                      {...field} 
+                      className="peer w-full bg-transparent border-0 border-b border-[rgba(255,255,255,0.1)] py-2 text-white focus:outline-none focus:ring-0 focus:border-transparent transition-colors placeholder-transparent"
+                      placeholder="Email Address"
+                      {...field}
                     />
-                    <label 
-                      htmlFor="field-email" 
+                    <label
+                      htmlFor="field-email"
                       className="absolute left-0 -top-5 text-[#A1A1AA] text-xs font-medium transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-[#71717A] peer-placeholder-shown:top-2 peer-focus:-top-5 peer-focus:text-[#8A2BE2] peer-focus:text-xs cursor-text pointer-events-none"
                     >
                       College Email Address
@@ -270,16 +270,16 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
               <FormItem className="relative pt-4">
                 <FormControl>
                   <div className="relative group">
-                    <input 
+                    <input
                       id="field-phone"
                       inputMode="numeric"
-                      className="peer w-full bg-transparent border-0 border-b border-[rgba(255,255,255,0.1)] py-2 text-white focus:outline-none focus:ring-0 focus:border-transparent transition-colors placeholder-transparent" 
-                      placeholder="Phone Number" 
-                      {...field} 
+                      className="peer w-full bg-transparent border-0 border-b border-[rgba(255,255,255,0.1)] py-2 text-white focus:outline-none focus:ring-0 focus:border-transparent transition-colors placeholder-transparent"
+                      placeholder="Phone Number"
+                      {...field}
                       onChange={(e) => field.onChange(e.target.value.replace(/\D/g, "").slice(0, 10))}
                     />
-                    <label 
-                      htmlFor="field-phone" 
+                    <label
+                      htmlFor="field-phone"
                       className="absolute left-0 -top-5 text-[#A1A1AA] text-xs font-medium transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-[#71717A] peer-placeholder-shown:top-2 peer-focus:-top-5 peer-focus:text-[#8A2BE2] peer-focus:text-xs cursor-text pointer-events-none"
                     >
                       Phone Number
@@ -311,11 +311,10 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => field.onChange(year)}
-                          className={`cursor-pointer rounded-[14px] py-4 px-3 text-center transition-all duration-300 select-none flex items-center justify-center gap-2 relative overflow-hidden border ${
-                            isSelected
+                          className={`cursor-pointer rounded-[14px] py-4 px-3 text-center transition-all duration-300 select-none flex items-center justify-center gap-2 relative overflow-hidden border ${isSelected
                               ? "bg-[#13131A] backdrop-blur-md border-[rgba(255,255,255,0.08)] text-white shadow-[0_0_20px_rgba(0,242,254,0.1)]"
                               : "bg-transparent border-transparent text-[rgba(255,255,255,0.4)] hover:text-[rgba(255,255,255,0.7)]"
-                          }`}
+                            }`}
                         >
                           {isSelected && (
                             <motion.div
@@ -338,21 +337,21 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
         </div>
 
         <div className="pt-10 flex justify-center">
-          <motion.button 
-            type="submit" 
-            disabled={submitting} 
+          <motion.button
+            type="submit"
+            disabled={submitting}
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
             className="group relative inline-flex items-center gap-5 w-full md:w-auto justify-center px-10 py-5 bg-[#13131A] text-white font-bold rounded-full transition-all duration-300 shadow-[0_0_30px_rgba(138,43,226,0.3)] hover:shadow-[0_0_50px_rgba(0,242,254,0.5)]"
           >
             {/* Razor-sharp glowing gradient border */}
-            <div 
-              className="absolute inset-0 rounded-full border-2 border-transparent pointer-events-none bg-[length:200%_auto] animate-gradient" 
+            <div
+              className="absolute inset-0 rounded-full border-2 border-transparent pointer-events-none bg-[length:200%_auto] animate-gradient"
               style={{
                 background: 'linear-gradient(#13131A, #13131A) padding-box, linear-gradient(to right, #8A2BE2, #00F2FE, #8A2BE2) border-box'
-              }} 
+              }}
             />
-            
+
             <span className="relative z-10 flex items-center text-lg tracking-wide">
               {submitting ? (
                 <>
@@ -363,7 +362,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
                 "Submit Registration"
               )}
             </span>
-            
+
             {!submitting && (
               <div className="relative z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/5 group-hover:bg-white/20 transition-all duration-300">
                 <svg className="w-5 h-5 text-white transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
