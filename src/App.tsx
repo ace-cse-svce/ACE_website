@@ -13,6 +13,8 @@ import InterruptHub from "./pages/InterruptHub";
 import Gallery from "./pages/Gallery";
 import Join from "./pages/Join";
 import NotFound from "./pages/NotFound";
+import MasterBeforeYouCompete from "./pages/events/MasterBeforeYouCompete";
+import RegisterMasterBeforeYouCompete from "./pages/events/RegisterMasterBeforeYouCompete";
 import Navbar from "./components/Navbar";
 import RecruitmentBanner from "./components/RecruitmentBanner";
 
@@ -42,6 +44,8 @@ const App = () => (
                 <Route path="/" element={<Home />} />
                 <Route path="/teams" element={<Teams />} />
                 <Route path="/events" element={<Events />} />
+                <Route path="/events/master-before-you-compete" element={<MasterBeforeYouCompete />} />
+                <Route path="/events/master-before-you-compete/register" element={<RegisterMasterBeforeYouCompete />} />
                 <Route path="/events/interrupt/:year" element={<InterruptHub />} />
                 <Route path="/events/completed/:slug" element={<CompletedEventDetail />} />
                 <Route path="/gallery" element={<Gallery />} />

@@ -23,7 +23,7 @@ function scrollToTarget(target: string) {
   }
 }
 
-export default function GlobalSearch() {
+export default function GlobalSearch({ isDarkMode = false }: { isDarkMode?: boolean }) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -71,7 +71,11 @@ export default function GlobalSearch() {
         onClick={() => setOpen(true)}
         aria-label="Search events"
         title="Search (Ctrl+K)"
-        className="p-2 text-zinc-700 hover:text-teal-600 hover:bg-white/50 rounded-full transition-colors active:scale-95"
+        className={`p-2 rounded-full transition-colors active:scale-95 ${
+          isDarkMode
+            ? "text-[#A1A1AA] hover:text-[#E4E4E7] hover:bg-white/5"
+            : "text-zinc-700 hover:text-teal-600 hover:bg-white/50"
+        }`}
       >
         <Search size={18} />
       </button>

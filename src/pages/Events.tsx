@@ -12,6 +12,7 @@ import YearPager from "@/components/YearPager";
 import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
 import Footer from "@/components/Footer";
+import MasterBeforeYouCompeteCard from "@/components/events/MasterBeforeYouCompeteCard";
 
 const orderedYears = [...academicYears].reverse();
 
@@ -72,6 +73,16 @@ export default function EventsPage() {
 
         {/* Events Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <MasterBeforeYouCompeteCard
+            title="Prompt Forge"
+            description="Learn Prompt Engineering and compete in an AI Image Recreation Challenge."
+            poster="/master_brfore_you-complete.jpeg"
+            date="12 August 2026"
+            time="6:30 PM"
+            mode="Online"
+            badge="AI Workshop"
+            href="/events/master-before-you-compete"
+          />
           {flagshipEvents.map((event) => (
             <motion.div
               key={event.title}

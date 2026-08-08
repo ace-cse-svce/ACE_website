@@ -12,6 +12,7 @@ export default function Navbar() {
   const [activeTab, setActiveTab] = useState("Home");
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const isDarkThemeRoute = location.pathname.startsWith("/events/master-before-you-compete") || location.pathname.startsWith("/events/prompt-forge");
 
   const isManualClick = useRef(false);
 
@@ -96,20 +97,27 @@ export default function Navbar() {
       <div className="fixed top-0 inset-x-0 z-[100] flex justify-center pt-4 sm:pt-6 px-4 pointer-events-none">
         <motion.nav
           layout
-          className={`pointer-events-auto relative flex items-center justify-between gap-4 transition-all duration-500 w-full md:w-auto ${isScrolled
-              ? "py-3 px-6 rounded-2xl md:py-2.5 md:px-4 md:rounded-full bg-white/90 backdrop-blur-xl border border-zinc-200/50 shadow-sm"
-              : "py-3 px-6 rounded-2xl bg-white/80 backdrop-blur-lg border border-white/50 shadow-sm"
-            }`}
+          className={`pointer-events-auto relative flex items-center justify-between gap-4 transition-all duration-500 w-full md:w-auto ${
+            isDarkThemeRoute
+              ? isScrolled
+                ? "py-1.5 px-6 rounded-2xl md:px-4 md:rounded-full bg-[#13131A]/70 backdrop-blur-[30px] border border-[rgba(255,255,255,0.05)] shadow-xl"
+                : "py-1.5 px-6 rounded-2xl bg-[#13131A]/60 backdrop-blur-[30px] border border-[rgba(255,255,255,0.05)] shadow-lg"
+              : isScrolled
+                ? "py-3 px-6 rounded-2xl md:py-2.5 md:px-4 md:rounded-full bg-white/90 backdrop-blur-xl border border-zinc-200/50 shadow-sm"
+                : "py-3 px-6 rounded-2xl bg-white/80 backdrop-blur-lg border border-white/50 shadow-sm"
+          }`}
           style={{ maxWidth: "1280px" }}
         >
           {/* Logo Section */}
-          <div onClick={() => handleNavClick(navLinks[0])} className="flex items-center gap-3 cursor-pointer group shrink-0">
-            <div className="relative flex items-center justify-center">
-              <div className="absolute inset-0 bg-teal-400 blur-[20px] opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-full" />
-              <img src="/ace_logo1.webp" alt="ACE Logo" className="relative w-10 h-10 object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-110" />
+          {!isDarkThemeRoute && (
+            <div onClick={() => handleNavClick(navLinks[0])} className="flex items-center gap-3 cursor-pointer group shrink-0">
+              <div className="relative flex items-center justify-center">
+                <div className="absolute inset-0 bg-teal-400 blur-[20px] opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-full" />
+                <img src="/ace_logo1.webp" alt="ACE Logo" className="relative w-10 h-10 object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-110" />
+              </div>
+              <span className="font-black tracking-tight text-xl bg-gradient-to-r from-teal-700 to-emerald-800 bg-clip-text text-transparent">ACE</span>
             </div>
-            <span className="font-black tracking-tight text-xl bg-gradient-to-r from-teal-700 to-emerald-800 bg-clip-text text-transparent">ACE</span>
-          </div>
+          )}
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-1">
@@ -121,13 +129,19 @@ export default function Navbar() {
                   onClick={() => handleNavClick(link)}
                   onMouseEnter={() => setHoveredTab(link.name)}
                   onMouseLeave={() => setHoveredTab(null)}
-                  className={`relative px-5 py-2 text-sm font-bold transition-colors duration-300 rounded-full ${isActive ? "text-white" : "text-zinc-700 hover:text-teal-700"}`}
+                  className={`relative px-5 py-2 font-bold transition-all duration-300 rounded-full ${
+                    isDarkThemeRoute
+                      ? isActive ? "text-white text-xs tracking-wide" : "text-slate-300 opacity-60 hover:opacity-100 hover:text-white text-xs tracking-wide"
+                      : isActive ? "text-sm text-white" : "text-sm text-zinc-700 hover:text-teal-700"
+                  }`}
                 >
                   {(hoveredTab === link.name && !isActive) && (
-                    <motion.div layoutId="nav-spotlight" className="absolute inset-0 bg-teal-50/50 rounded-full" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />
+                    <motion.div layoutId="nav-spotlight" className={`absolute inset-0 rounded-full ${isDarkThemeRoute ? "bg-white/[0.02]" : "bg-teal-50/50"}`} transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />
                   )}
                   {isActive && (
-                    <motion.div layoutId="nav-active" className="absolute inset-0 bg-gradient-to-r from-teal-400 to-emerald-500 shadow-[0_4px_15px_rgba(20,184,166,0.3)] rounded-full" transition={{ type: "spring", bounce: 0.25, duration: 0.5 }} />
+                    <motion.div layoutId="nav-active" className={`absolute inset-0 rounded-full overflow-hidden ${isDarkThemeRoute ? "bg-gradient-to-b from-white/[0.04] to-transparent border border-[#00F2FE]/50 shadow-[0_0_15px_rgba(0,242,254,0.1)]" : "bg-gradient-to-r from-teal-400 to-emerald-500 shadow-[0_4px_15px_rgba(20,184,166,0.3)]"}`} transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}>
+                      {isDarkThemeRoute && <div className="absolute top-0 inset-x-2 h-[1px] bg-gradient-to-r from-transparent via-[#00F2FE] to-transparent opacity-90 shadow-[0_1px_8px_rgba(0,242,254,0.8)]" />}
+                    </motion.div>
                   )}
                   <span className="relative z-10">{link.name}</span>
                 </button>
@@ -136,19 +150,24 @@ export default function Navbar() {
           </div>
 
           {/* Search + Join Us CTA (desktop) */}
-          <div className="hidden md:flex items-center gap-2 shrink-0">
-            <GlobalSearch />
-
-          </div>
+          {!isDarkThemeRoute && (
+            <div className="hidden md:flex items-center gap-2 shrink-0">
+              <GlobalSearch isDarkMode={isDarkThemeRoute} />
+            </div>
+          )}
 
           {/* Mobile Toggle */}
-          <div className="flex md:hidden items-center gap-1">
-            <GlobalSearch />
+          <div className="flex md:hidden items-center gap-1 w-full justify-end">
+            {!isDarkThemeRoute && <GlobalSearch isDarkMode={isDarkThemeRoute} />}
             <button
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={isOpen}
-              className="p-2 text-zinc-700 hover:text-teal-600 hover:bg-white/50 rounded-full transition-colors active:scale-95"
+              className={`p-2 rounded-full transition-colors active:scale-95 ${
+                isDarkThemeRoute
+                  ? "text-[#A1A1AA] hover:text-white hover:bg-white/5"
+                  : "text-zinc-700 hover:text-teal-600 hover:bg-white/50"
+              }`}
             >
               {isOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
