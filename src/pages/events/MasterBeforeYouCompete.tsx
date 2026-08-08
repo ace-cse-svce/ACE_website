@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Seo from "@/components/Seo";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/events/HeroSection";
@@ -9,6 +9,14 @@ import RegistrationCTA from "@/components/events/RegistrationCTA";
 import { eventData } from "@/data/masterBeforeYouCompete";
 
 const MasterBeforeYouCompete: React.FC = () => {
+  useEffect(() => {
+    const originalBodyBg = document.body.style.backgroundColor;
+    document.body.style.backgroundColor = "#0D0D11";
+    return () => {
+      document.body.style.backgroundColor = originalBodyBg || "";
+    };
+  }, []);
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#0D0D11] text-white font-sans">
       <Seo
@@ -43,21 +51,20 @@ const MasterBeforeYouCompete: React.FC = () => {
         
         {/* Engineering Mesh Pattern with Vignette Mask */}
         <div 
-          className="absolute inset-0"
+          className="absolute inset-0 bg-[length:3rem_3rem] md:bg-[length:5rem_5rem]"
           style={{
             backgroundImage: `
               linear-gradient(to right, rgba(255,255,255,0.015) 1px, transparent 1px),
               linear-gradient(to bottom, rgba(255,255,255,0.015) 1px, transparent 1px)
             `,
-            backgroundSize: '5rem 5rem',
             maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)',
             WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)'
           }}
         />
 
         {/* Volumetric Chromatic Engine */}
-        <div className="absolute top-[10%] left-[5%] w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] bg-[#8A2BE2] rounded-full blur-[120px] opacity-20 mix-blend-screen" />
-        <div className="absolute bottom-[10%] right-[5%] w-[35vw] h-[35vw] max-w-[500px] max-h-[500px] bg-[#00F2FE] rounded-full blur-[120px] opacity-20 mix-blend-screen" />
+        <div className="absolute top-[10%] left-[5%] w-64 h-64 md:w-[40vw] md:h-[40vw] max-w-[600px] max-h-[600px] bg-[#8A2BE2] rounded-full blur-[60px] md:blur-[120px] opacity-20 md:opacity-20 mix-blend-screen" />
+        <div className="absolute bottom-[10%] right-[5%] w-64 h-64 md:w-[35vw] md:h-[35vw] max-w-[500px] max-h-[500px] bg-[#00F2FE] rounded-full blur-[60px] md:blur-[120px] opacity-20 md:opacity-20 mix-blend-screen" />
       </div>
       
       {/* Navbar is rendered in App.tsx globally */}

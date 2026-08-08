@@ -97,11 +97,13 @@ export default function Navbar() {
       <div className="fixed top-0 inset-x-0 z-[100] flex justify-center pt-4 sm:pt-6 px-4 pointer-events-none">
         <motion.nav
           layout
-          className={`pointer-events-auto relative flex items-center justify-between gap-4 transition-all duration-500 w-full md:w-auto ${
+          className={`pointer-events-auto relative flex items-center justify-between gap-4 transition-all duration-500 ${
+            isDarkThemeRoute ? "w-auto ml-auto md:mx-auto" : "w-full md:w-auto"
+          } ${
             isDarkThemeRoute
               ? isScrolled
-                ? "py-1.5 px-6 rounded-2xl md:px-4 md:rounded-full bg-[#13131A]/70 backdrop-blur-[30px] border border-[rgba(255,255,255,0.05)] shadow-xl"
-                : "py-1.5 px-6 rounded-2xl bg-[#13131A]/60 backdrop-blur-[30px] border border-[rgba(255,255,255,0.05)] shadow-lg"
+                ? "p-1.5 rounded-full md:py-1.5 md:px-6 bg-[#13131A]/70 backdrop-blur-[30px] border border-[rgba(255,255,255,0.05)] shadow-xl"
+                : "p-1.5 rounded-full md:py-1.5 md:px-6 bg-[#13131A]/60 backdrop-blur-[30px] border border-[rgba(255,255,255,0.05)] shadow-lg"
               : isScrolled
                 ? "py-3 px-6 rounded-2xl md:py-2.5 md:px-4 md:rounded-full bg-white/90 backdrop-blur-xl border border-zinc-200/50 shadow-sm"
                 : "py-3 px-6 rounded-2xl bg-white/80 backdrop-blur-lg border border-white/50 shadow-sm"
@@ -178,22 +180,31 @@ export default function Navbar() {
         <AnimatePresence>
           {isOpen && (
             <motion.div initial={{ opacity: 0, scale: 0.95, y: -20 }} animate={{ opacity: 1, scale: 1, y: 12 }} exit={{ opacity: 0, scale: 0.95, y: -10 }} className="pointer-events-auto absolute top-full left-4 right-4 md:hidden">
-              <div className="bg-white/95 backdrop-blur-xl border border-zinc-200/50 rounded-2xl p-2 shadow-xl flex flex-col gap-1 overflow-hidden">
-                {navLinks.map((link, idx) => (
-                  <motion.button
-                    key={link.name}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.05 }}
-                    onClick={() => handleNavClick(link)}
-                    className={`w-full flex items-center justify-between p-4 rounded-xl text-left transition-all ${activeTab === link.name ? "bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-bold shadow-md" : "text-zinc-600 hover:bg-zinc-50 font-medium"}`}
-                  >
-                    <span>{link.name}</span>
-                    {activeTab === link.name && <div className="w-2 h-2 rounded-full bg-white animate-pulse" />}
-                  </motion.button>
-                ))}
-
-
+              <div className={`${isDarkThemeRoute ? "bg-[#13131A]/95 border-[rgba(255,255,255,0.08)] shadow-2xl" : "bg-white/95 border-zinc-200/50 shadow-xl"} backdrop-blur-xl border rounded-2xl p-2 flex flex-col gap-1 overflow-hidden`}>
+                {navLinks.map((link, idx) => {
+                  const isActive = activeTab === link.name;
+                  return (
+                    <motion.button
+                      key={link.name}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.05 }}
+                      onClick={() => handleNavClick(link)}
+                      className={`w-full flex items-center justify-between p-4 rounded-xl text-left transition-all ${
+                        isActive
+                          ? isDarkThemeRoute
+                            ? "bg-white/[0.08] text-white font-bold border border-[#00F2FE]/30 shadow-[0_0_15px_rgba(0,242,254,0.1)]"
+                            : "bg-gradient-to-r from-teal-400 to-emerald-500 text-white font-bold shadow-md"
+                          : isDarkThemeRoute
+                            ? "text-[#A1A1AA] hover:bg-white/5 hover:text-white font-medium"
+                            : "text-zinc-600 hover:bg-zinc-50 font-medium"
+                      }`}
+                    >
+                      <span>{link.name}</span>
+                      {isActive && <div className={`w-2 h-2 rounded-full animate-pulse ${isDarkThemeRoute ? "bg-[#00F2FE]" : "bg-white"}`} />}
+                    </motion.button>
+                  );
+                })}
               </div>
             </motion.div>
           )}
