@@ -12,9 +12,25 @@ export default function Navbar() {
   const [activeTab, setActiveTab] = useState("Home");
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeRect, setActiveRect] = useState({ left: 0, width: 0 });
+  const navRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const isDarkThemeRoute = location.pathname.startsWith("/events/master-before-you-compete") || location.pathname.startsWith("/events/prompt-forge");
 
   const isManualClick = useRef(false);
+
+  // Update active pill position
+  useEffect(() => {
+    // Small timeout to allow DOM to settle, especially on font load or layout shifts
+    const updateRect = () => {
+      const el = navRefs.current[activeTab];
+      if (el) {
+        setActiveRect({ left: el.offsetLeft, width: el.offsetWidth });
+      }
+    };
+    updateRect();
+    window.addEventListener("resize", updateRect);
+    return () => window.removeEventListener("resize", updateRect);
+  }, [activeTab]);
 
   // Scroll observer logic
   useEffect(() => {
@@ -66,10 +82,9 @@ export default function Navbar() {
   const handleNavClick = (link: NavLink) => {
     setIsOpen(false);
     setActiveTab(link.name);
+    isManualClick.current = true;
 
     if (link.type === "scroll" && link.target) {
-      isManualClick.current = true;
-
       const performScroll = () => {
         const element = document.querySelector(link.target!);
         if (element) {
@@ -88,7 +103,7 @@ export default function Navbar() {
       }
     } else {
       navigate(link.href);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => { isManualClick.current = false; }, 800);
     }
   };
 
@@ -97,6 +112,7 @@ export default function Navbar() {
       <div className="fixed top-0 inset-x-0 z-[100] flex justify-center pt-4 sm:pt-6 px-4 pointer-events-none">
         <motion.nav
           layout
+          layoutRoot
           className={`pointer-events-auto relative flex items-center justify-between gap-4 transition-all duration-500 ${
             isDarkThemeRoute ? "w-auto ml-auto md:mx-auto" : "w-full md:w-auto"
           } ${
@@ -122,12 +138,22 @@ export default function Navbar() {
           )}
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-1 relative">
+            {/* Manual sliding pill to fix layoutId scroll bug */}
+            <motion.div
+              className={`absolute top-0 bottom-0 rounded-full overflow-hidden ${isDarkThemeRoute ? "bg-gradient-to-b from-white/[0.04] to-transparent border border-[#00F2FE]/50 shadow-[0_0_15px_rgba(0,242,254,0.1)]" : "bg-gradient-to-r from-teal-400 to-emerald-500 shadow-[0_4px_15px_rgba(20,184,166,0.3)]"}`}
+              animate={{ left: activeRect.left, width: activeRect.width }}
+              transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+            >
+              {isDarkThemeRoute && <div className="absolute top-0 inset-x-2 h-[1px] bg-gradient-to-r from-transparent via-[#00F2FE] to-transparent opacity-90 shadow-[0_1px_8px_rgba(0,242,254,0.8)]" />}
+            </motion.div>
+
             {navLinks.map((link) => {
               const isActive = activeTab === link.name;
               return (
                 <button
                   key={link.name}
+                  ref={(el) => (navRefs.current[link.name] = el)}
                   onClick={() => handleNavClick(link)}
                   onMouseEnter={() => setHoveredTab(link.name)}
                   onMouseLeave={() => setHoveredTab(null)}
@@ -139,11 +165,6 @@ export default function Navbar() {
                 >
                   {(hoveredTab === link.name && !isActive) && (
                     <motion.div layoutId="nav-spotlight" className={`absolute inset-0 rounded-full ${isDarkThemeRoute ? "bg-white/[0.02]" : "bg-teal-50/50"}`} transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />
-                  )}
-                  {isActive && (
-                    <motion.div layoutId="nav-active" className={`absolute inset-0 rounded-full overflow-hidden ${isDarkThemeRoute ? "bg-gradient-to-b from-white/[0.04] to-transparent border border-[#00F2FE]/50 shadow-[0_0_15px_rgba(0,242,254,0.1)]" : "bg-gradient-to-r from-teal-400 to-emerald-500 shadow-[0_4px_15px_rgba(20,184,166,0.3)]"}`} transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}>
-                      {isDarkThemeRoute && <div className="absolute top-0 inset-x-2 h-[1px] bg-gradient-to-r from-transparent via-[#00F2FE] to-transparent opacity-90 shadow-[0_1px_8px_rgba(0,242,254,0.8)]" />}
-                    </motion.div>
                   )}
                   <span className="relative z-10">{link.name}</span>
                 </button>

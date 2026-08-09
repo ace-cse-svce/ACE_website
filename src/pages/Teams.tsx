@@ -45,19 +45,29 @@ export default function TeamsPage() {
 
         {/* Tab Selection */}
         <div className="flex flex-wrap justify-center gap-3 p-2 mb-24 glass-strong rounded-[2rem] w-fit mx-auto shadow-lg">
-          {Object.keys(teams).map((team) => (
-            <button 
-              key={team}
-              onClick={() => setActiveTab(team)}
-              className={`px-6 md:px-8 py-3 rounded-[1.5rem] text-xs md:text-sm font-black uppercase tracking-widest transition-all duration-300 ${
-                activeTab === team 
-                  ? "bg-teal-400 text-white shadow-glow" 
-                  : "text-muted-foreground hover:text-foreground hover:bg-teal-400/10"
-              }`}
-            >
-              {team}
-            </button>
-          ))}
+          {Object.keys(teams).map((team) => {
+            const isActive = activeTab === team;
+            return (
+              <button 
+                key={team}
+                onClick={() => setActiveTab(team)}
+                className={`relative px-6 md:px-8 py-3 rounded-[1.5rem] text-xs md:text-sm font-black uppercase tracking-widest transition-colors duration-300 ${
+                  isActive 
+                    ? "text-white" 
+                    : "text-muted-foreground hover:text-foreground hover:bg-teal-400/10"
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activeTeamTab"
+                    className="absolute inset-0 bg-teal-400 rounded-[1.5rem] shadow-glow"
+                    transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                  />
+                )}
+                <span className="relative z-10">{team}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Members Grid */}
@@ -66,7 +76,6 @@ export default function TeamsPage() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            key={activeTab}
             className="flex flex-wrap justify-center gap-8 w-full"
           >
             <AnimatePresence mode="wait">
