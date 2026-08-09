@@ -38,7 +38,7 @@ const sections = ["A", "B", "C", "D", "E"] as const;
 
 const formSchema = z.object({
   name: z.string().trim().min(2, "Please enter your full name."),
-  registrationNumber: z.string().trim().regex(/^21272405\d{5}$/, "Registration number must be in the format 21272405*****"),
+  registrationNumber: z.string().trim().regex(/^2127\d{9}$/, "Registration number must be in the format 2127*********"),
   collegeEmail: z.string().trim().email("Please enter a valid email address.").endsWith("@svce.ac.in", "Email must end with @svce.ac.in"),
   phoneNumber: z.string().trim().regex(/^[6-9]\d{9}$/, "Please enter a valid 10-digit phone number."),
   department: z.string({
@@ -81,15 +81,27 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess }) => {
   async function onSubmit(values: FormValues) {
     if (values.website) return; // honeypot
 
+    const sheetUrl = import.meta.env.VITE_RECRUITMENT_SHEET_URL as string | undefined;
+    if (!sheetUrl) {
+      toast.error("The registration form isn't wired up to a Google Sheet yet. Please check your .env file.");
+      return;
+    }
+
     setSubmitting(true);
     try {
-      await fetch(import.meta.env.VITE_RECRUITMENT_SHEET_URL as string, {
+      // Map 'department' to 'programme' because the deployed Google Script expects it
+      const payload = {
+        ...values,
+        programme: values.department
+      };
+
+      await fetch(sheetUrl, {
         method: "POST",
         mode: "no-cors",
         headers: {
           "Content-Type": "text/plain",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(payload),
       });
 
       onSuccess();

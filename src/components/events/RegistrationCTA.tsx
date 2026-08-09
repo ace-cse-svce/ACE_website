@@ -60,6 +60,11 @@ const RegistrationCTA: React.FC = () => {
               <ArrowRight size={20} className="text-white" />
             </div>
           </Link>
+          
+          {/* Contact Information */}
+          <div className="mt-8 text-center text-[#A1A1AA] text-sm md:text-base relative z-10">
+            <p>Got questions? Contact <span className="text-white font-semibold">Gaurav Kumar</span> at <a href="tel:8667378011" className="text-[#00F2FE] hover:underline">866 737 8011</a></p>
+          </div>
         </motion.div>
       </div>
     </section>

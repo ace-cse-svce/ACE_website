@@ -9,14 +9,12 @@ import GalleryEventCard from "@/components/GalleryEventCard";
 import YearPager from "@/components/YearPager";
 import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
-import Footer from "@/components/Footer";
 
 const orderedYears = [...academicYears].reverse();
 
 const galleryImages = [
-  { src: "/gallery1.webp", alt: "ACE Team AY 2025-2026" },
-  { src: "/gallery2.webp", alt: "Inauguration Ceremony" },
-  { src: "/gallery3.webp", alt: "ACE Team Group Photo" },
+  { src: "/gallery1.jpeg", alt: "ACE Team AY 2026-2027" },
+  { src: "/gallery3.webp", alt: "ACE Team AY 2025-2026" },
   { src: "/hero3.webp", alt: "Interrupt '25" },
   { src: "/gallery5.webp", alt: "Hackerrupt '25" },
 ];
@@ -309,7 +307,6 @@ export default function GalleryPage() {
         )}
       </section>
 
-      <Footer />
-    </div>
+          </div>
   );
 }

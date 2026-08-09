@@ -6,7 +6,6 @@ import { assetUrl } from "@/lib/assetUrl";
 import EventTypeBadge from "@/components/EventTypeBadge";
 import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
-import Footer from "@/components/Footer";
 
 export default function CompletedEventDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -150,7 +149,6 @@ export default function CompletedEventDetail() {
         </motion.div>
       </section>
 
-      <Footer />
-    </div>
+          </div>
   );
 }

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Seo from "@/components/Seo";
-import Footer from "@/components/Footer";
 import HeroSection from "@/components/events/HeroSection";
 import AboutSection from "@/components/events/AboutSection";
 import EventSchedule from "@/components/events/EventSchedule";
@@ -90,8 +89,7 @@ const MasterBeforeYouCompete: React.FC = () => {
         <RegistrationCTA />
       </main>
       
-      <Footer />
-    </div>
+          </div>
   );
 };
 

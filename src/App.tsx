@@ -17,6 +17,7 @@ import MasterBeforeYouCompete from "./pages/events/MasterBeforeYouCompete";
 import RegisterMasterBeforeYouCompete from "./pages/events/RegisterMasterBeforeYouCompete";
 import Navbar from "./components/Navbar";
 import RecruitmentBanner from "./components/RecruitmentBanner";
+import Footer from "./components/Footer";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +54,7 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
+            <Footer />
           </div>
           <Toaster />
           <Sonner />

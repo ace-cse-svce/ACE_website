@@ -7,7 +7,6 @@ import CompletedEventCard from "@/components/CompletedEventCard";
 import EventTypeBadge from "@/components/EventTypeBadge";
 import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
-import Footer from "@/components/Footer";
 
 export default function InterruptHub() {
   const { year } = useParams<{ year: string }>();
@@ -116,7 +115,6 @@ export default function InterruptHub() {
         </div>
       </section>
 
-      <Footer />
-    </div>
+          </div>
   );
 }

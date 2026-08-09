@@ -4,7 +4,7 @@ export const eventData = {
   date: "12 August 2026",
   time: "6:30 PM",
   mode: "Online",
-  poster: "/master_before_you_compete_ai.png",
+  poster: "/Prompt_Forge.jpeg",
   registrationDeadline: "10 August 2026",
   aboutText: [
     "Prompt Forge is an online technical event designed to introduce participants to prompt engineering through a hands-on workshop followed by an AI image recreation challenge. Participants will learn how to craft effective prompts and apply those skills in two competitive rounds.",
@@ -37,14 +37,14 @@ export const eventData = {
       description: "Participate remotely from anywhere.",
     },
     {
-      icon: "Award",
-      title: "Recognition & Certificates",
-      description: "Earn certificates for participation and winning.",
+      icon: "FileBadge",
+      title: "Certificates for All",
+      description: "E-certificates will be provided to all registered participants.",
     }
   ],
   schedule: [
     {
-      time: "8 Aug, 9:00 AM",
+      time: "9 Aug, 9:00 AM",
       title: "Registration Opens",
       description: "Secure your spot for Prompt Forge.",
       icon: "Presentation"

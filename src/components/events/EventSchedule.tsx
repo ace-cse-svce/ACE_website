@@ -116,11 +116,7 @@ const EventSchedule: React.FC<EventScheduleProps> = ({ schedule }) => {
                              <h3 className="text-white text-2xl lg:text-3xl font-black tracking-tight drop-shadow-sm">
                                {item.time}
                              </h3>
-                             {isFirst && (
-                                <span className="px-3 py-1 bg-[#00F2FE]/10 border border-[#00F2FE]/30 text-[#00F2FE] text-xs font-bold rounded-full whitespace-nowrap shadow-[0_0_15px_rgba(0,242,254,0.2)]">
-                                  Duration: 40 Mins
-                                </span>
-                             )}
+
                           </div>
                           
                           <div className="w-full">

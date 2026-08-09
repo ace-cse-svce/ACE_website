@@ -3,9 +3,9 @@ import { ChevronLeft, ChevronRight, Mail, MapPin, Instagram, Linkedin } from "lu
 import { useState, useEffect } from "react";
 import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
-import Footer from "@/components/Footer";
 
 const heroImages = [
+  { src: "/Prompt_Forge.jpeg", alt: "Prompt Forge Banner", objectFit: "contain" },
   { src: "/gallery1.jpeg", alt: "Students collaborating on engineering project" },
   { src: "/hero2.webp", alt: "Community development field work" },
   { src: "/hero3.webp", alt: "Team group photo at conference" },
@@ -57,7 +57,7 @@ export default function Home() {
                 src={image.src}
                 alt={image.alt}
                 loading={index === 0 ? "eager" : "lazy"}
-                className="w-full h-full object-cover object-center md:object-top animate-ken-burns"
+                className={`w-full h-full object-center md:object-top animate-ken-burns ${image.objectFit === 'contain' ? 'object-contain' : 'object-cover'}`}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/70" />
             </div>
@@ -67,7 +67,7 @@ export default function Home() {
         {/* Hero Content */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="text-center text-white px-6 md:px-4 animate-fade-in-up">
-            <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-white via-accent to-cyan-400 bg-clip-text text-transparent animate-pulse-slow py-2 leading-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold mb-4 bg-gradient-to-r from-white via-teal-100 to-cyan-400 bg-clip-text text-transparent animate-pulse-slow pb-4 pt-2 leading-snug drop-shadow-2xl">
               Association of <br className="md:hidden" /> Computer Engineers
             </h1>
             <p className="text-lg md:text-2xl text-gray-200 mb-8 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
@@ -275,35 +275,21 @@ export default function Home() {
                   </div>
                 </motion.div>
 
-                <div className="grid md:grid-cols-2 gap-4">
-                  {/* Email Glass Box */}
-                  <motion.div
-                    whileHover={{ scale: 1.03 }}
-                    className="flex items-center gap-4 p-5 rounded-2xl glass cursor-pointer"
-                  >
-                    <Mail className="text-primary" size={20} />
-                    <p className="text-sm font-bold text-foreground">ace@svce.ac.in</p>
-                  </motion.div>
-
-                  {/* Links Glass Box */}
-                  <motion.div
-                    whileHover={{ scale: 1.03 }}
-                    className="flex flex-col gap-2 p-5 rounded-2xl glass"
-                  >
-                    <h4 className="text-[13px] font-black text-primary uppercase tracking-tighter">Additional Links</h4>
-                    <div className="flex gap-3">
-                      <a href="https://ace-interrupt.netlify.app/" className="text-xs font-bold text-muted-foreground hover:text-primary transition-colors">Interrupt'25</a>
-                      <span className="text-border">|</span>
-                      <a href="https://www.acesvce.in/" className="text-xs font-bold text-muted-foreground hover:text-primary transition-colors">Hackerrupt'25</a>
-                    </div>
-                  </motion.div>
-                </div>
+                {/* Email Glass Box */}
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  className="flex items-center gap-4 p-5 rounded-2xl glass cursor-pointer"
+                >
+                  <Mail className="text-primary" size={20} />
+                  <p className="text-sm font-bold text-foreground">ace@svce.ac.in</p>
+                </motion.div>
 
                 {/* Leadership Boxes */}
                 <div className="grid md:grid-cols-2 gap-4">
                   {[
-                    { name: "Mithun S", role: "President" },
-                    { name: "Kiran M S", role: "Vice President" }
+                    { name: "Sarvesh Ragav B", role: "President" },
+                    { name: "Harighanesh A", role: "Vice President" },
+                    { name: "Shrinidhi Dasraty", role: "Vice President" }
                   ].map((lead) => (
                     <motion.div
                       key={lead.role}
@@ -360,7 +346,6 @@ export default function Home() {
         </div>
       </section>
 
-      <Footer />
-    </div>
+          </div>
   );
 }

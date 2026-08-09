@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Clock, Monitor, Info } from "lucide-react";
 import Seo from "@/components/Seo";
-import Footer from "@/components/Footer";
 import RegistrationForm from "@/components/events/RegistrationForm";
 import RegistrationSuccess from "@/components/events/RegistrationSuccess";
 
@@ -166,8 +165,7 @@ const RegisterMasterBeforeYouCompete: React.FC = () => {
         )}
       </main>
 
-      <Footer />
-    </div>
+          </div>
   );
 };
 

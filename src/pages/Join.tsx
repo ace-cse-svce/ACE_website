@@ -8,7 +8,6 @@ import { Info } from "lucide-react";
 
 import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
-import Footer from "@/components/Footer";
 import {
   roles,
   rolesForYear,
@@ -587,7 +586,6 @@ export default function Join() {
         )}
       </div>
 
-      <Footer />
-    </div>
+          </div>
   );
 }

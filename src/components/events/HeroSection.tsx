@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import { Calendar, Clock, Monitor, ArrowRight, CalendarDays } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -28,6 +28,55 @@ const containerVariants: Variants = {
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+const typewriterSentences = [
+  "Master AI Prompting.",
+  "Engineer Precision Prompts.",
+  "Compete. Innovate. Dominate.",
+  "Unlock Generative AI."
+];
+
+const TypewriterText = () => {
+  const [wordIndex, setWordIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  useEffect(() => {
+    const handleTyping = () => {
+      const currentWord = typewriterSentences[wordIndex];
+      
+      if (isDeleting) {
+        setText(currentWord.substring(0, text.length - 1));
+        setTypingSpeed(30); // Faster deletion for sentences
+      } else {
+        setText(currentWord.substring(0, text.length + 1));
+        setTypingSpeed(80); // Slightly faster typing for sentences
+      }
+
+      if (!isDeleting && text === currentWord) {
+        setTimeout(() => setIsDeleting(true), 2500);
+      } else if (isDeleting && text === "") {
+        setIsDeleting(false);
+        setWordIndex((prev) => (prev + 1) % typewriterSentences.length);
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, wordIndex, typingSpeed]);
+
+  return (
+    <span className="inline-flex items-center text-[#00F2FE] drop-shadow-[0_0_15px_rgba(0,242,254,0.6)] text-center">
+      <span>{text}</span>
+      <motion.span
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ repeat: Infinity, duration: 0.8 }}
+        className="inline-block w-[4px] h-[0.9em] bg-[#00F2FE] ml-2 shadow-[0_0_10px_#00F2FE]"
+      />
+    </span>
+  );
 };
 
 const HeroSection: React.FC<HeroSectionProps> = ({
@@ -72,12 +121,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             </motion.div>
 
             {/* Title */}
-            <motion.div variants={itemVariants} className="filter drop-shadow-sm">
+            <motion.div variants={itemVariants} className="filter drop-shadow-sm flex flex-col items-center">
               <h1
-                className="text-6xl md:text-7xl lg:text-8xl font-black leading-[1.2] mb-4 px-4 py-6 tracking-normal bg-clip-text text-transparent bg-gradient-to-b from-[#FFFFFF] via-[#F4F4F5] to-[#A1A1AA]"
+                className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.2] mb-1 px-4 pt-6 pb-2 tracking-normal bg-clip-text text-transparent bg-gradient-to-b from-[#FFFFFF] via-[#F4F4F5] to-[#A1A1AA]"
               >
                 {title}
               </h1>
+              <div className="h-[2em] md:h-[1.5em] text-2xl md:text-3xl lg:text-4xl font-bold mb-6 flex items-center justify-center max-w-4xl px-4">
+                <TypewriterText />
+              </div>
             </motion.div>
 
             {/* Tagline */}

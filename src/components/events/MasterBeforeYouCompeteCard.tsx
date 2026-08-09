@@ -11,7 +11,7 @@ export interface MasterBeforeYouCompeteCardProps {
   date: string;
   time: string;
   mode: string;
-  badge: string;
+  badge?: string;
   href: string;
 }
 
@@ -48,12 +48,14 @@ const MasterBeforeYouCompeteCard: React.FC<MasterBeforeYouCompeteCardProps> = ({
           <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-fuchsia-500 opacity-10 mix-blend-multiply transition-opacity duration-500" />
 
           {/* Type Badge */}
-          <div className="absolute top-4 left-4">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 backdrop-blur-md shadow-sm text-xs font-bold text-muted-foreground tracking-wider">
-              <Sparkles size={13} className="text-primary" />
-              {badge}
-            </span>
-          </div>
+          {badge && (
+            <div className="absolute top-4 left-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 backdrop-blur-md shadow-sm text-xs font-bold text-muted-foreground tracking-wider">
+                <Sparkles size={13} className="text-primary" />
+                {badge}
+              </span>
+            </div>
+          )}
 
           {/* Year Badge */}
           <div className="absolute top-4 right-4">

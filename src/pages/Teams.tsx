@@ -4,7 +4,6 @@ import { teams } from "@/data/teams";
 import { assetUrl } from "@/lib/assetUrl";
 import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
-import Footer from "@/components/Footer";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -77,10 +76,10 @@ export default function TeamsPage() {
                   key={member.name} 
                   whileHover={{ y: -10 }}
                   onClick={() => setClickedMember(clickedMember === member.name ? null : member.name)}
-                  className="group cursor-pointer"
+                  className="group cursor-pointer flex"
                 >
                   {/* Glass Card */}
-                  <div className={`relative w-[280px] overflow-hidden transition-all duration-500 backdrop-blur-3xl border rounded-[2.5rem] p-6 text-center ${
+                  <div className={`relative w-[250px] h-full flex flex-col overflow-hidden transition-all duration-500 backdrop-blur-3xl border rounded-[2.5rem] p-5 text-center ${
                     clickedMember === member.name 
                     ? "bg-teal-400/20 border-teal-400 shadow-glow-lg scale-[1.02]" 
                     : "bg-foreground/5 border-white/60 hover:border-white/90 shadow-2xl"
@@ -90,7 +89,7 @@ export default function TeamsPage() {
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-40 pointer-events-none" />
 
                     {/* Image Squircle */}
-                    <div className="relative w-full aspect-square mb-6">
+                    <div className="relative w-full h-[210px] mb-6 shrink-0">
                       <div className={`absolute inset-0 rounded-[2rem] blur-2xl transition-opacity duration-500 ${
                         clickedMember === member.name ? "bg-teal-400/60 opacity-100" : "bg-teal-400/20 opacity-0 group-hover:opacity-100"
                       }`} />
@@ -102,7 +101,7 @@ export default function TeamsPage() {
                             src={assetUrl(member.image)}
                             alt={member.name}
                             loading="lazy"
-                            className="w-full h-full"
+                            className="w-full h-full object-cover"
                             style={{ 
                               objectPosition: member.objectPosition || 'center',
                               objectFit: member.objectFit || 'cover',
@@ -114,7 +113,7 @@ export default function TeamsPage() {
                     </div>
 
                     {/* Text Content */}
-                    <div className="space-y-4">
+                    <div className="space-y-4 flex flex-col flex-grow">
                       <h3 className={`font-bold text-lg tracking-tight transition-colors duration-300 ${
                         clickedMember === member.name ? "text-foreground" : "text-foreground/80"
                       }`}>
@@ -122,16 +121,18 @@ export default function TeamsPage() {
                       </h3>
 
                       {/* Position Badge */}
-                      <div className={`inline-block px-5 py-2 rounded-xl backdrop-blur-xl border transition-all duration-500 ${
-                        clickedMember === member.name 
-                        ? "bg-teal-400 text-white border-teal-400 shadow-glow" 
-                        : "bg-white/50 border-white text-primary shadow-sm group-hover:shadow-glow group-hover:border-teal-400/40"
-                      }`}>
+                      <div className="mt-auto pt-2">
+                        <div className={`inline-block px-5 py-2 rounded-xl backdrop-blur-xl border transition-all duration-500 ${
+                          clickedMember === member.name 
+                          ? "bg-teal-400 text-white border-teal-400 shadow-glow" 
+                          : "bg-white/50 border-white text-primary shadow-sm group-hover:shadow-glow group-hover:border-teal-400/40"
+                        }`}>
                         <p className="text-[10px] font-black uppercase tracking-[0.2em]">
                           {member.role}
                         </p>
                       </div>
                     </div>
+                  </div>
                   </div>
                 </motion.div>
               ))}
@@ -139,7 +140,6 @@ export default function TeamsPage() {
           </motion.div>
         </div>
       </div>
-      <Footer />
-    </div>
+          </div>
   );
 }
