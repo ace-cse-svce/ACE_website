@@ -18,14 +18,14 @@ const RegistrationSuccess: React.FC = () => {
         Registration Successful
       </h2>
       
-      <p className="text-[#B6B6B6] text-lg mb-8 max-w-md mx-auto">
+      <div className="text-[#B6B6B6] text-lg mb-8 max-w-md mx-auto">
         You're registered for <strong className="text-white">Prompt Forge</strong>.
-        <br /><br />
-        12 August 2026<br />
-        6:30 PM · Online
-        <br /><br />
+        <div className="flex flex-col text-sm text-[#A1A1AA] space-y-1 mt-4 mb-4">
+          <span>12 August 2026</span>
+          <span>7:00 PM · Online</span>
+        </div>
         Please join our official WhatsApp group for all event updates, meeting links, and important announcements.
-      </p>
+      </div>
       
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <a

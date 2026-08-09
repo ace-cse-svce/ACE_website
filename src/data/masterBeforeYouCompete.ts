@@ -2,7 +2,7 @@ export const eventData = {
   title: "Prompt Forge",
   description: "Learn Prompt Engineering and compete in an AI Image Recreation Challenge.",
   date: "12 August 2026",
-  time: "6:30 PM",
+  time: "7:00 PM",
   mode: "Online",
   poster: "/Prompt_Forge.jpeg",
   registrationDeadline: "10 August 2026",

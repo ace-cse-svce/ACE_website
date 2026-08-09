@@ -77,7 +77,7 @@ export default function EventsPage() {
             description="Learn Prompt Engineering and compete in an AI Image Recreation Challenge."
             poster="/Prompt_Forge.jpeg"
             date="12 August 2026"
-            time="6:30 PM"
+            time="7:00 PM"
             mode="Online"
             href="/events/master-before-you-compete"
           />

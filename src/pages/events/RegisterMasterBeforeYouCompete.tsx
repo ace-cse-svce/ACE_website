@@ -103,7 +103,7 @@ const RegisterMasterBeforeYouCompete: React.FC = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-[10px] text-[#A1A1AA] uppercase tracking-wider font-semibold">Time</span>
-              <span className="text-white font-semibold text-sm">6:30 PM</span>
+              <span className="text-white font-semibold text-sm">7:00 PM</span>
             </div>
           </div>
           
