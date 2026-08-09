@@ -92,10 +92,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   scheduleLink = "#timeline",
 }) => {
   return (
-    <section className="relative w-full min-h-[85vh] flex items-center overflow-hidden pt-36 md:pt-32 pb-16 perspective-1000">
+    <section className="relative w-full min-h-[85vh] flex items-center overflow-hidden pt-28 md:pt-20 pb-24 md:pb-32 perspective-1000">
 
       {/* ACE Logo - Top Left */}
-      <div className="absolute top-16 left-1/2 -translate-x-1/2 md:top-12 md:left-12 md:translate-x-0 z-20">
+      <div className="absolute top-6 left-1/2 -translate-x-1/2 md:top-12 md:left-12 md:translate-x-0 z-20">
         <img 
           src={assetUrl("/ace_logo.png")} 
           alt="ACE Logo" 
@@ -123,11 +123,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Title */}
             <motion.div variants={itemVariants} className="filter drop-shadow-sm flex flex-col items-center">
               <h1
-                className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.2] mb-1 px-4 pt-6 pb-2 tracking-normal bg-clip-text text-transparent bg-gradient-to-b from-[#FFFFFF] via-[#F4F4F5] to-[#A1A1AA]"
+                className="text-6xl md:text-7xl lg:text-8xl font-black leading-tight mb-2 px-4 pt-6 pb-6 tracking-normal bg-clip-text text-transparent bg-gradient-to-b from-[#FFFFFF] via-[#F4F4F5] to-[#A1A1AA]"
               >
                 {title}
               </h1>
-              <div className="h-[2em] md:h-[1.5em] text-2xl md:text-3xl lg:text-4xl font-bold mb-6 flex items-center justify-center max-w-4xl px-4">
+              <div className="h-[2em] md:h-[1.5em] text-xl md:text-2xl lg:text-3xl font-bold mb-6 flex items-center justify-center max-w-4xl px-4">
                 <TypewriterText />
               </div>
             </motion.div>

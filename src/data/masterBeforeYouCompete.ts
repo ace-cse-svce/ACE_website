@@ -44,7 +44,7 @@ export const eventData = {
   ],
   schedule: [
     {
-      time: "9 Aug, 9:00 AM",
+      time: "9 Aug, 6:00 PM",
       title: "Registration Opens",
       description: "Secure your spot for Prompt Forge.",
       icon: "Presentation"
@@ -56,37 +56,37 @@ export const eventData = {
       icon: "Clock"
     },
     {
-      time: "6:30 PM - 7:10 PM",
+      time: "7:00 PM - 7:40 PM",
       title: "Welcome & Prompt Engineering Workshop",
       description: "Learn the fundamentals of writing effective prompts.",
       icon: "Brain"
     },
     {
-      time: "7:15 PM - 7:30 PM",
+      time: "7:40 PM - 7:55 PM",
       title: "Round 1 - Recreate Image",
       description: "Recreate the image using a maximum of 2 Prompts.",
       icon: "Image"
     },
     {
-      time: "7:30 PM - 7:40 PM",
+      time: "7:55 PM - 8:05 PM",
       title: "Round 1 Submission",
       description: "Submit Round 1 results via Google Form.",
       icon: "UploadCloud"
     },
     {
-      time: "7:40 PM - 8:05 PM",
+      time: "8:05 PM - 8:30 PM",
       title: "Round 2 - Recreate Image",
       description: "Recreate the image using a maximum of 3-4 Prompts.",
       icon: "Image"
     },
     {
-      time: "8:05 PM - 8:15 PM",
+      time: "8:30 PM - 8:40 PM",
       title: "Round 2 Submission",
       description: "Submit Round 2 results via Google Form.",
       icon: "UploadCloud"
     },
     {
-      time: "8:20 PM - 8:40 PM",
+      time: "8:40 PM - 8:50 PM",
       title: "End of the event",
       description: "Thank you note and event conclusion.",
       icon: "CheckCircle"
