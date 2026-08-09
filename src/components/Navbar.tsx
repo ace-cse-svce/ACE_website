@@ -20,16 +20,34 @@ export default function Navbar() {
 
   // Update active pill position
   useEffect(() => {
-    // Small timeout to allow DOM to settle, especially on font load or layout shifts
     const updateRect = () => {
       const el = navRefs.current[activeTab];
       if (el) {
         setActiveRect({ left: el.offsetLeft, width: el.offsetWidth });
       }
     };
+    
     updateRect();
+    
+    // Ensure we recalculate when fonts load
+    if (document.fonts) {
+      document.fonts.ready.then(updateRect);
+    }
+
+    // Ensure we recalculate if the container or buttons change size
+    const observer = new ResizeObserver(() => {
+      updateRect();
+    });
+
+    Object.values(navRefs.current).forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
     window.addEventListener("resize", updateRect);
-    return () => window.removeEventListener("resize", updateRect);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateRect);
+    };
   }, [activeTab]);
 
   // Scroll observer logic

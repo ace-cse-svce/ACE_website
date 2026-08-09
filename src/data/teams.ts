@@ -19,7 +19,7 @@ export const teams: Record<string, TeamMember[]> = {
   ],
   "Executive Team": [
     { name: "Ashwant P", role: "Executive Member", image: "/EXECUTIVE MEMBERS/Ashwant P.png", objectPosition: "top" },
-    { name: "KEERTHANA JANAKIRAMAN", role: "Executive Member", image: "/EXECUTIVE MEMBERS/KEERTHANA JANAKIRAMAN.jpg", objectPosition: "50% 25%", scale: 1.5 },
+    { name: "Keerthana Janakiraman", role: "Executive Member", image: "/EXECUTIVE MEMBERS/KEERTHANA JANAKIRAMAN.jpg", objectPosition: "50% 25%", scale: 1.5 },
     { name: "Kanchan R", role: "Executive Member", image: "/EXECUTIVE MEMBERS/Kanchan R.jpg" },
     { name: "Nainikaelarahakarthikha S", role: "Executive Member", image: "/EXECUTIVE MEMBERS/Nainikaelarahakarthikha. S.png" },
     { name: "sabiya M", role: "Executive Member", image: "/EXECUTIVE MEMBERS/sabiya M.jpeg" },
