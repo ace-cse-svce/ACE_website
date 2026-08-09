@@ -5,7 +5,6 @@ import Seo from "@/components/Seo";
 import BackgroundGlow from "@/components/BackgroundGlow";
 
 const heroImages = [
-  { src: "/Prompt_Forge.jpeg", alt: "Prompt Forge Banner", objectFit: "contain" },
   { src: "/gallery1.jpeg", alt: "Students collaborating on engineering project" },
   { src: "/hero2.webp", alt: "Community development field work" },
   { src: "/hero3.webp", alt: "Team group photo at conference" },
