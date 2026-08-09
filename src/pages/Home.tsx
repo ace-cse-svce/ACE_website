@@ -285,20 +285,23 @@ export default function Home() {
                 </motion.div>
 
                 {/* Leadership Boxes */}
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
                   {[
                     { name: "Sarvesh Ragav B", role: "President" },
                     { name: "Harighanesh A", role: "Vice President" },
                     { name: "Shrinidhi Dasraty", role: "Vice President" }
                   ].map((lead) => (
                     <motion.div
-                      key={lead.role}
+                      key={lead.name}
                       whileHover={{ scale: 1.03 }}
-                      className="p-6 rounded-[2rem] glass cursor-pointer"
+                      className="p-5 rounded-[2rem] glass cursor-pointer"
                     >
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-glow" />
-                        <p className="text-sm font-black text-foreground uppercase">{lead.name} <span className="text-primary text-[10px] ml-1">({lead.role})</span></p>
+                      <div className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-glow mt-1.5 shrink-0" />
+                        <div className="flex flex-col">
+                          <p className="text-sm font-black text-foreground uppercase leading-tight">{lead.name}</p>
+                          <p className="text-primary text-[10px] font-bold uppercase tracking-wider mt-1">{lead.role}</p>
+                        </div>
                       </div>
                     </motion.div>
                   ))}
