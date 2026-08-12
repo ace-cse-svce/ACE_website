@@ -70,7 +70,7 @@ const MasterBeforeYouCompete: React.FC = () => {
       
       <main className="relative z-10">
         <HeroSection
-          badge="AI Workshop + Competition"
+          badge="Event Successfully Completed!"
           title={eventData.title}
           tagline="Master before you complete"
           description="An online workshop followed by a two-round AI image recreation challenge designed to improve your prompt engineering skills."

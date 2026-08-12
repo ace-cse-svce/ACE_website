@@ -124,45 +124,15 @@ const RegisterMasterBeforeYouCompete: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
+          className="w-full relative py-20 text-center"
         >
-          <AnimatePresence mode="wait">
-            {!isSuccess ? (
-              <motion.div
-                key="form"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-                className="w-full relative py-10"
-              >
-                <RegistrationForm onSuccess={() => setIsSuccess(true)} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="success"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4 }}
-              >
-                <RegistrationSuccess />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
-
-        {!isSuccess && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-8 flex items-start gap-3 text-[rgba(255,255,255,0.4)] text-sm px-2"
-          >
-            <Info size={16} className="shrink-0 mt-0.5 text-[#00F2FE]" />
-            <p>
-              Please ensure your email address is correct as all event communications, including the meeting link and submission forms, will be sent there.
+          <div className="bg-[#13131A]/50 backdrop-blur-md border border-[rgba(255,255,255,0.05)] rounded-2xl p-12 max-w-lg mx-auto shadow-2xl">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Event Successfully Completed!</h3>
+            <p className="text-[#A1A1AA] text-lg">
+              Prompt Forge has now concluded. Thank you to everyone who participated and made it a huge success!
             </p>
-          </motion.div>
-        )}
+          </div>
+        </motion.div>
       </main>
 
           </div>

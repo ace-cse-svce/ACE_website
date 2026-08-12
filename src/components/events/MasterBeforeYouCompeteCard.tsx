@@ -68,10 +68,11 @@ const MasterBeforeYouCompeteCard: React.FC<MasterBeforeYouCompeteCardProps> = ({
         {/* Content Area */}
         <div className="relative h-[48%] p-5 md:p-6 flex flex-col justify-between">
           <div>
-            <span className="text-primary font-bold text-[10px] tracking-widest uppercase mb-1 block">
-              Upcoming Event
+            <span className="text-purple-600 dark:text-purple-400 font-bold text-[10px] tracking-widest uppercase mb-1 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+              Event Concluded
             </span>
-            <h3 className="text-xl md:text-2xl font-black text-foreground mb-1.5 tracking-tight group-hover:text-teal-600 transition-colors duration-300 line-clamp-2">
+            <h3 className="text-xl md:text-2xl font-black text-foreground mb-1.5 tracking-tight group-hover:text-purple-600 transition-colors duration-300 line-clamp-2">
               {title}
             </h3>
             <p className="text-muted-foreground text-sm font-medium leading-relaxed line-clamp-2">

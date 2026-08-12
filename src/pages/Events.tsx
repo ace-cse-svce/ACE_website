@@ -65,7 +65,7 @@ export default function EventsPage() {
             What's Next
           </span>
           <h2 className="text-5xl md:text-6xl font-bold mb-4 text-foreground">
-            Upcoming Events
+            Featured Events
           </h2>
           <div className="w-32 h-2 bg-teal-400 mx-auto rounded-full shadow-glow" />
         </motion.div>
@@ -79,8 +79,10 @@ export default function EventsPage() {
             date="12 August 2026"
             time="7:00 PM"
             mode="Online"
+            badge="Completed"
             href="/events/master-before-you-compete"
           />
+
           {flagshipEvents.map((event) => (
             <motion.div
               key={event.title}

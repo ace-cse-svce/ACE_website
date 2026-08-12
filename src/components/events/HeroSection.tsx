@@ -132,18 +132,47 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
             </motion.div>
 
-            {/* Tagline */}
-            <motion.h2
+            {/* Completion Banner */}
+            <motion.div
               variants={itemVariants}
-              className="text-2xl md:text-3xl font-semibold mb-8 leading-snug tracking-tight"
+              className="mb-12 w-full max-w-4xl relative group"
             >
-              <span className="text-[#E4E4E7]">Learn Prompt Engineering.</span>
-              <br className="hidden md:block" />
-              <span className="text-[#00F2FE] drop-shadow-[0_0_15px_rgba(0,242,254,0.6)] ml-0 md:ml-2 relative">
-                Compete with Precision.
-                <span className="absolute inset-0 bg-[#00F2FE] blur-2xl opacity-20 pointer-events-none"></span>
-              </span>
-            </motion.h2>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#00F2FE]/10 via-[#8A2BE2]/10 to-[#00F2FE]/10 rounded-3xl blur-xl transition-all duration-700 group-hover:opacity-100 opacity-60"></div>
+              
+              <div className="relative p-[1px] rounded-3xl bg-gradient-to-r from-white/10 via-white/5 to-white/10 overflow-hidden">
+                <div className="relative bg-[#0A0A0F]/80 backdrop-blur-2xl rounded-[23px] py-10 px-6 md:px-12 flex flex-col items-center justify-center text-center shadow-2xl">
+                  
+                  {/* Premium Headline */}
+                  <div className="inline-flex items-center gap-3 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-6">
+                    <span className="w-2 h-2 rounded-full bg-[#00F2FE] animate-pulse shadow-[0_0_8px_#00F2FE]"></span>
+                    <span className="text-white/80 text-xs font-semibold tracking-widest uppercase">Status: Concluded</span>
+                  </div>
+
+                  <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/50">
+                    Event Successfully Completed!
+                  </h2>
+                  
+                  <p className="text-lg md:text-xl text-[#A1A1AA] font-medium max-w-2xl mb-8 leading-relaxed">
+                    Thank you for being part of Prompt Forge. Your participation made this event a resounding success.
+                  </p>
+                  
+                  {/* Sleek Principles Row */}
+                  <div className="flex flex-wrap justify-center items-center gap-3 md:gap-4">
+                    {['Keep experimenting', 'Keep creating', 'Keep prompting'].map((text, i) => (
+                      <div key={text} className="flex items-center gap-3 md:gap-4">
+                        <span className={`px-4 py-2 rounded-xl text-xs md:text-sm font-bold tracking-[0.15em] uppercase border ${i === 2 ? 'bg-[#00F2FE]/10 text-[#00F2FE] border-[#00F2FE]/20 shadow-[inset_0_0_20px_rgba(0,242,254,0.1)]' : 'bg-white/5 text-white/70 border-white/10'}`}>
+                          {text}
+                        </span>
+                        {i !== 2 && (
+                          <span className="hidden md:block w-4 h-[1px] bg-white/20"></span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                </div>
+              </div>
+            </motion.div>
 
             {/* Organized Metadata Bay */}
             <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center gap-6 mb-12 bg-[#13131A]/40 backdrop-blur-md border border-[rgba(255,255,255,0.03)] px-8 py-5 rounded-[16px] shadow-2xl">
@@ -184,20 +213,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* Primary CTA */}
             <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center gap-5">
-              <Link
-                to={registrationLink}
-                className="group relative inline-flex items-center gap-5 px-10 py-5 bg-[#13131A] text-white font-bold rounded-full transition-all duration-300 hover:-translate-y-1 shadow-[0_0_30px_rgba(138,43,226,0.2)] hover:shadow-[0_0_50px_rgba(0,242,254,0.3)]"
+              <div
+                className="group relative inline-flex items-center gap-5 px-10 py-5 bg-[#13131A] text-[rgba(255,255,255,0.5)] font-bold rounded-full transition-all duration-300 shadow-[0_0_30px_rgba(138,43,226,0.1)] cursor-default"
               >
                 {/* Razor-sharp dual-color gradient line border */}
                 <div className="absolute inset-0 rounded-full border-2 border-transparent pointer-events-none" style={{
-                  background: 'linear-gradient(#13131A, #13131A) padding-box, linear-gradient(to right, #8A2BE2, #00F2FE) border-box'
+                  background: 'linear-gradient(#13131A, #13131A) padding-box, linear-gradient(to right, rgba(138,43,226,0.5), rgba(0,242,254,0.5)) border-box'
                 }} />
 
-                <span className="relative z-10 text-xl tracking-wide">Register Now</span>
-                <div className="relative z-10 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center transition-transform group-hover:translate-x-1">
-                  <ArrowRight size={20} className="text-white" />
-                </div>
-              </Link>
+                <span className="relative z-10 text-xl tracking-wide">Event Concluded</span>
+              </div>
               
               <a
                 href={scheduleLink}

@@ -30,36 +30,31 @@ const RegistrationCTA: React.FC = () => {
 
           {/* Massive Variable Typography Headline */}
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-black mb-8 relative z-10 tracking-tighter leading-[1.05] drop-shadow-sm pb-2">
-            <span className="text-white">Ready to Master</span>{" "}
+            <span className="text-white">Event Successfully</span>{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-br from-[#00F2FE] via-[#E4E4E7] to-[#FFFFFF]">
-              Your Prompts?
+              Completed!
             </span>
           </h2>
           
           {/* High-Contrast Sub-paragraph */}
           <p className="text-[#A1A1AA] text-lg md:text-xl mb-14 max-w-2xl relative z-10 font-medium leading-[1.8]">
-            Join the intensive workshop, test your synthesis skills, and recreate AI images with absolute precision. 
+            Thank you to all the participants for joining the intensive workshop and making Prompt Forge a massive success. 
             <br />
             <span className="text-[#00F2FE] font-bold tracking-wide mt-3 block drop-shadow-[0_0_8px_rgba(0,242,254,0.3)]">
-              Entry nodes remain strictly constrained. Secure yours now.
+              Stay tuned for more exciting events.
             </span>
           </p>
 
           {/* Primary Action Control (CTA Button) */}
-          <Link
-            to="/events/master-before-you-compete/register"
-            className="group relative inline-flex items-center gap-5 px-10 py-5 bg-[#13131A] text-white font-bold rounded-full transition-all duration-300 hover:-translate-y-1 z-10 shadow-[0_0_30px_rgba(138,43,226,0.2)] hover:shadow-[0_0_50px_rgba(0,242,254,0.3)]"
+          <div
+            className="group relative inline-flex items-center gap-5 px-10 py-5 bg-[#13131A] text-[rgba(255,255,255,0.5)] font-bold rounded-full transition-all duration-300 z-10 shadow-[0_0_30px_rgba(138,43,226,0.1)] cursor-default"
           >
-            {/* Razor-sharp dual-color gradient line border */}
             <div className="absolute inset-0 rounded-full border-2 border-transparent pointer-events-none" style={{
-              background: 'linear-gradient(#13131A, #13131A) padding-box, linear-gradient(to right, #8A2BE2, #00F2FE) border-box'
+              background: 'linear-gradient(#13131A, #13131A) padding-box, linear-gradient(to right, rgba(138,43,226,0.5), rgba(0,242,254,0.5)) border-box'
             }} />
             
-            <span className="tracking-wide relative z-10 text-xl">Register Now</span>
-            <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1 relative z-10">
-              <ArrowRight size={20} className="text-white" />
-            </div>
-          </Link>
+            <span className="tracking-wide relative z-10 text-xl">Event Concluded</span>
+          </div>
           
           {/* Contact Information */}
           <div className="mt-8 text-center text-[#A1A1AA] text-sm md:text-base relative z-10">
